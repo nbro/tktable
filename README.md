@@ -1,9 +1,14 @@
 # tktable
 
-This is a wrapper written by [Guilherme Polo](https://github.com/gpolo) for the `Tcl/Tk` `Tktable` widget. See license below by the author for more information.
+This is a wrapper of the `Tcl/Tk` `Tktable` widget for Python written by [Guilherme Polo](https://github.com/gpolo). See license below by the author for more information.
 
-This version of the wrapper is for Python 3.
 
+### Language
+
+ * Python 3
+
+
+### License
 
 Copyright (c) 2008, Guilherme Polo
 
