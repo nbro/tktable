@@ -31,10 +31,12 @@ __author__ = "Guilherme Polo <ggpolo@gmail.com>"
 
 __all__ = ["ArrayVar", "Table"]
 
-import os
-import tkinter
+import os   
 import collections
-
+try:
+    import tkinter
+except ImportError:
+    import Tkinter as tkinter
 
 def _setup_master(master):
     if master is None:
@@ -573,7 +575,10 @@ class Table(tkinter.Widget):
 
 # Sample test taken from tktable cvs, original tktable python wrapper
 def sample_test():
-    from tkinter import Tk, Label, Button
+    try:
+        from tkinter import Tk, Label, Button
+    except ImportError:
+        from Tkinter import Tk, Label, Button    
 
     def test_cmd(event):
         if event.i == 0:
