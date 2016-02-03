@@ -3,16 +3,16 @@
 This is a wrapper of the `Tcl/Tk` `Tktable` widget for Python written by [Guilherme Polo](https://github.com/gpolo). See license below by the author for more information.
 
 
-### Language
+## Language
 
  * Python 2 and 3
 
 
-### How to use
+## How to use
 
 Just copy the file [`tktable.py`](tktable.py) to your working directory and import `tktable.py` normally. You could also, for example, copy the module to the `site-packages` folder under your Python distribution, so that you don't have to copy everytime the module to all your projects.
 
-### License
+## License
 
 Copyright (c) 2008, Guilherme Polo
 
