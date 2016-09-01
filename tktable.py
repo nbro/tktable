@@ -6,6 +6,7 @@
 #
 #  * Redistributions of source code must retain the above copyright notice,
 #    this list of conditions and the following disclaimer.
+#
 #  * Redistributions in binary form must reproduce the above copyright notice,
 #    this list of conditions and the following disclaimer in the documentation
 #    and/or other materials provided with the distribution.
@@ -28,15 +29,16 @@ tcl arrays that are, in some instances, required by tktable.
 """
 
 __author__ = "Guilherme Polo <ggpolo@gmail.com>"
-
 __all__ = ["ArrayVar", "Table"]
 
-import os   
 import collections
+import os
+
 try:
     import tkinter
 except ImportError:
     import Tkinter as tkinter
+
 
 def _setup_master(master):
     if master is None:
@@ -49,7 +51,6 @@ def _setup_master(master):
 
 
 class ArrayVar(tkinter.Variable):
-
     """Class for handling Tcl arrays.
 
     An array is actually an associative array in Tcl, so this class supports
@@ -86,12 +87,10 @@ class ArrayVar(tkinter.Variable):
         if key is None:
             flatten_pairs = self._tk.call('array', 'get', str(self))
             return dict(list(zip(flatten_pairs[::2], flatten_pairs[1::2])))
-
         return self._tk.globalgetvar(str(self), str(key))
 
     def set(self, **kw):
-        self._tk.call(
-            'array', 'set', str(self), tkinter._flatten(list(kw.items())))
+        self._tk.call('array', 'set', str(self), tkinter._flatten(list(kw.items())))
 
     def unset(self, pattern=None):
         """Unsets all of the elements in the array. If pattern is given, only
@@ -103,24 +102,22 @@ _TKTABLE_LOADED = False
 
 
 class Table(tkinter.Widget):
-
     """Create and manipulate tables."""
 
-    _switches = ('holddimensions', 'holdselection', 'holdtags', 'holdwindows',
-                 'keeptitles', '-')
+    _switches = ('holddimensions', 'holdselection', 'holdtags', 'holdwindows', 'keeptitles', '-')
     _tabsubst_format = ('%c', '%C', '%i', '%r', '%s', '%S', '%W')
     _tabsubst_commands = ('browsecommand', 'browsecmd', 'command',
-                          'selectioncommand', 'selcmd',
-                          'validatecommand', 'valcmd')
+                          'selectioncommand', 'selcmd', 'validatecommand', 'valcmd')
 
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
+
         global _TKTABLE_LOADED
+
         if not _TKTABLE_LOADED:
             tktable_lib = os.environ.get('TKTABLE_LIBRARY')
             if tktable_lib:
-                master.tk.eval('global auto_path; '
-                               'lappend auto_path {%s}' % tktable_lib)
+                master.tk.eval('global auto_path; lappend auto_path {%s}' % tktable_lib)
             master.tk.call('package', 'require', 'Tktable')
             _TKTABLE_LOADED = True
 
@@ -136,8 +133,7 @@ class Table(tkinter.Widget):
         for k, v in cnf.items():
             if isinstance(v, collections.Callable):
                 if k in self._tabsubst_commands:
-                    v = "%s %s" % (self._register(v, self._tabsubst),
-                                   ' '.join(self._tabsubst_format))
+                    v = "%s %s" % (self._register(v, self._tabsubst), ' '.join(self._tabsubst_format))
                 else:
                     v = self._register(v)
             res += ('-%s' % k, v)
@@ -332,8 +328,7 @@ class Table(tkinter.Widget):
         self.tk.call(self._w, 'selection', 'clear', first, last)
 
     def selection_includes(self, index):
-        return self.getboolean(self.tk.call(self._w, 'selection', 'includes',
-                                            index))
+        return self.getboolean(self.tk.call(self._w, 'selection', 'includes', index))
 
     def selection_set(self, first, last=None):
         self.tk.call(self._w, 'selection', 'set', first, last)
@@ -355,7 +350,7 @@ class Table(tkinter.Widget):
             if rc:
                 args = (rc, index)
             else:
-                args = (index, )
+                args = (index,)
             return self.tk.call(self._w, 'set', *args)
 
         if rc is None:
@@ -397,25 +392,18 @@ class Table(tkinter.Widget):
         kwargs is given then it corresponds to option-value pairs that should
         be modified."""
         if option is None and not kwargs:
-            split1 = self.tk.splitlist(
-                self.tk.call(self._w, 'tag', 'configure', tagname))
-
+            split1 = self.tk.splitlist(self.tk.call(self._w, 'tag', 'configure', tagname))
             result = {}
             for item in split1:
                 res = self.tk.splitlist(item)
                 result[res[0]] = res[1:]
-
             return result
-
         elif option:
-            return self.tk.call(self._w, 'tag', 'configure', tagname,
-                                '-%s' % option)
-
+            return self.tk.call(self._w, 'tag', 'configure', tagname, '-%s' % option)
         else:
             args = ()
             for key, val in kwargs.items():
                 args += ('-%s' % key, val)
-
             self.tk.call(self._w, 'tag', 'configure', tagname, *args)
 
     def tag_delete(self, tagname):
@@ -482,13 +470,11 @@ class Table(tkinter.Widget):
         if option is None and not kwargs:
             return self.tk.call(self._w, 'window', 'configure', index)
         elif option:
-            return self.tk.call(self._w, 'window', 'configure', index,
-                                '-%s' % option)
+            return self.tk.call(self._w, 'window', 'configure', index, '-%s' % option)
         else:
             args = ()
             for key, val in kwargs.items():
                 args += ('-%s' % key, val)
-
             self.tk.call(self._w, 'window', 'configure', index, *args)
 
     def window_delete(self, *indexes):
@@ -527,7 +513,8 @@ class Table(tkinter.Widget):
         the display; if it is pages then the view adjusts by number screenfuls.
         If 'number' is negative then cells farther to the left become visible;
         if it is positive then cells farther to the right become visible. """
-        #self.tk.call(self._w, 'xview', 'scroll', number, what)
+        # self.tk.call(self._w, 'xview', 'scroll', number, what)
+        op, howMany = L[0], L[1]
         if op == 'scroll':
             units = L[2]
             self.tk.call(self._w, 'xview', 'scroll', howMany, units)
@@ -564,7 +551,7 @@ class Table(tkinter.Widget):
         is pages then the view adjusts by number screenfuls.
         If 'number' is negative then earlier elements become visible; if it
         is positive then later elements become visible. """
-        #self.tk.call(self._w, 'yview', 'scroll', number, what)
+        # self.tk.call(self._w, 'yview', 'scroll', number, what)
         op, howMany = L[0], L[1]
         if op == 'scroll':
             units = L[2]
@@ -578,7 +565,7 @@ def sample_test():
     try:
         from tkinter import Tk, Label, Button
     except ImportError:
-        from Tkinter import Tk, Label, Button    
+        from Tkinter import Tk, Label, Button
 
     def test_cmd(event):
         if event.i == 0:
@@ -631,6 +618,7 @@ def sample_test():
     test.tag_configure('active', background='blue')
     test.tag_configure('title', anchor='w', bg='red', relief='sunken')
     root.mainloop()
+
 
 if __name__ == '__main__':
     sample_test()
