@@ -48,6 +48,7 @@ new_virtualenv(){
     # installing dependencies inside the virtual environment
     install_dependencies
     new_docs
+    tktable_demo -test
 
     deactivate
     printf "${YELLOW}EXITED FROM VIRTUAL ENVIRONMENT.${NORMAL}\n\n"

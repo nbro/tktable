@@ -111,16 +111,19 @@ class Table(tkinter.Widget):
 
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
-
         global _TKTABLE_LOADED
-
         if not _TKTABLE_LOADED:
             tktable_lib = os.environ.get('TKTABLE_LIBRARY')
             if tktable_lib:
                 master.tk.eval('global auto_path; lappend auto_path {%s}' % tktable_lib)
-            master.tk.call('package', 'require', 'Tktable')
+            try:
+                master.tk.call('package', 'require', 'Tktable')
+            except tkinter._tkinter.TclError:
+                print("\033[93mThe Tcl/Tk extension named 'Tktable' is not installed in your system.\n"
+                      "You need first to install it to use this wrapper library.\n"
+                      "If you're seeing this message, you probably downloaded this module from "
+                      "this Github's repository 'https://github.com/nelson-brochado/tktable'.\033[0m\n")
             _TKTABLE_LOADED = True
-
         tkinter.Widget.__init__(self, master, 'table', kw)
 
     def _options(self, cnf, kw=None):
@@ -128,7 +131,6 @@ class Table(tkinter.Widget):
             cnf = tkinter._cnfmerge((cnf, kw))
         else:
             cnf = tkinter._cnfmerge(cnf)
-
         res = ()
         for k, v in cnf.items():
             if isinstance(v, collections.Callable):
@@ -137,17 +139,14 @@ class Table(tkinter.Widget):
                 else:
                     v = self._register(v)
             res += ('-%s' % k, v)
-
         return res
 
     def _tabsubst(self, *args):
         if len(args) != len(self._tabsubst_format):
             return args
-
         tk = self.tk
         c, C, i, r, s, S, W = args
         e = tkinter.Event()
-
         e.widget = self
         e.c = tk.getint(c)
         e.i = tk.getint(i)
@@ -159,7 +158,6 @@ class Table(tkinter.Widget):
             e.W = self._nametowidget(W)
         except KeyError:
             e.W = None
-
         return (e,)
 
     def _handle_switches(self, args):
@@ -246,7 +244,6 @@ class Table(tkinter.Widget):
             return dict(pair.split() for pair in pairs)
         elif row:
             return int(self.tk.call(self._w, 'height', str(row)))
-
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, 'height', *args)
 
@@ -352,7 +349,6 @@ class Table(tkinter.Widget):
             else:
                 args = (index,)
             return self.tk.call(self._w, 'set', *args)
-
         if rc is None:
             args = tkinter._flatten(list(kwargs.items()))
             self.tk.call(self._w, 'set', *args)
@@ -413,8 +409,7 @@ class Table(tkinter.Widget):
         return self.getboolean(self.tk.call(self._w, 'tag', 'exists', tagname))
 
     def tag_includes(self, tagname, index):
-        return self.getboolean(self.tk.call(self._w, 'tag', 'includes',
-                                            tagname, index))
+        return self.getboolean(self.tk.call(self._w, 'tag', 'includes', tagname, index))
 
     def tag_lower(self, tagname, belowthis=None):
         self.tk.call(self._w, 'tag', 'lower', belowthis)
@@ -450,7 +445,6 @@ class Table(tkinter.Widget):
             return dict(pair.split() for pair in pairs)
         elif column is not None:
             return int(self.tk.call(self._w, 'width', str(column)))
-
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, 'width', *args)
 
@@ -617,6 +611,10 @@ def sample_test():
     test.tag_configure('sel', background='yellow')
     test.tag_configure('active', background='blue')
     test.tag_configure('title', anchor='w', bg='red', relief='sunken')
+
+    import sys
+    if "-test" in sys.argv:
+        root.after(1000, lambda: root.destroy())
     root.mainloop()
 
 

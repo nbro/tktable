@@ -3,7 +3,7 @@
 [![Python 2, 3](https://img.shields.io/badge/python-2%2C%203-blue.svg)](https://www.python.org/downloads/)
 [![license](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](./LICENSE.md)
 
-This is a wrapper library for Python of the homonymous Tcl/Tk library written by [Guilherme Polo](https://github.com/gpolo).
+This is a wrapper library for Python of the homonymous Tcl/Tk library written by [Guilherme Polo](https://github.com/gpip).
 
 ## Notes and warnings
 
