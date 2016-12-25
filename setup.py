@@ -5,14 +5,10 @@
 ## Resources
 - [https://packaging.python.org/en/latest/distributing/#readme-rst](https://packaging.python.org/en/latest/distributing/#readme-rst
 )
-
-https://packaging.python.org/en/latest/distributing/#readme-rst
-
-http://docs.python-guide.org/en/latest/writing/structure/
+- [http://docs.python-guide.org/en/latest/writing/structure/](http://docs.python-guide.org/en/latest/writing/structure/)
 """
 
 import os
-
 from setuptools import setup
 
 
@@ -31,7 +27,7 @@ setup(
     long_description=read("README.md"),
     license="The BSD 2-Clause License",
     keywords="table tkinter tcl tk wrapper library",
-    url="https://github.com/nelson-brochado/tktable",
+    url="https://github.com/nbro/tktable",
     include_package_data=True,
     classifiers=[
         # How mature is this project? Common values are
