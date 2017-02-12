@@ -29,6 +29,10 @@ before_install:
 
   #- sudo apt-get install tk-table
 
-# command to run tests
+# command to install dependencies
+install:
+  - pip install -e . # Installing this package in editable mode.
+
+# command to run tktable_demo
 script:
-  - ./travis.sh
+  - tktable_demo -test

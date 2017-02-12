@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Script used while working on tktable.py
+
 # colors used when printing
 GREEN=$(tput setaf 2)
 RED=$(tput setaf 1)
