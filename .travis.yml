@@ -18,8 +18,14 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
-  - sudo apt-get install python-tk
-  - sudo apt-get install tk-table
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.6 ]]; then sudo apt-get install python-tk; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2.7 ]]; then sudo apt-get install python-tk; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.3 ]]; then sudo apt-get install python3-tk; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then sudo apt-get install python3-tk; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; then sudo apt-get install python3-tk; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then sudo apt-get install python3-tk; fi
+
+  #- sudo apt-get install tk-table
 
 # command to run tests
 script:
