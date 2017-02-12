@@ -17,7 +17,7 @@ clean() {
 
 install_dependencies(){
     printf "${YELLOW}Installing required dependencies...${NORMAL}\n"
-    pip install pdoc
+    # pip install pdoc
     pip install -e .
     printf "${GREEN}Done.${NORMAL}\n\n"
 }
