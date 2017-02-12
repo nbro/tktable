@@ -112,18 +112,23 @@ class Table(tkinter.Widget):
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
         global _TKTABLE_LOADED
+
         if not _TKTABLE_LOADED:
+
             tktable_lib = os.environ.get('TKTABLE_LIBRARY')
             if tktable_lib:
                 master.tk.eval('global auto_path; lappend auto_path {%s}' % tktable_lib)
+
             try:
                 master.tk.call('package', 'require', 'Tktable')
+                _TKTABLE_LOADED = True
             except tkinter._tkinter.TclError:
                 print("\033[93mThe Tcl/Tk extension named 'Tktable' is not installed in your system.\n"
                       "You need first to install it to use this wrapper library.\n"
                       "If you're seeing this message, you probably downloaded this module from "
                       "this Github's repository 'https://github.com/nbro/tktable'.\033[0m\n")
-            _TKTABLE_LOADED = True
+                _TKTABLE_LOADED = False
+
         tkinter.Widget.__init__(self, master, 'table', kw)
 
     def _options(self, cnf, kw=None):

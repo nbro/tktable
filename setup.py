@@ -13,7 +13,7 @@ def read(file_name):
 
 setup(
     name="tktable",  # name of this project to be listed on PyPI
-    version="0.0.1a",  # alpha release
+    version="0.0.1a0",  # alpha release
     author="Guilherme Polo",
     author_email="ggpolo@gmail.com",
     maintainer="Nelson Brochado",

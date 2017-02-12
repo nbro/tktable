@@ -24,7 +24,6 @@ before_install:
   - if [[ $TRAVIS_PYTHON_VERSION == 3.4 ]]; then sudo apt-get install python3-tk; fi
   - if [[ $TRAVIS_PYTHON_VERSION == 3.5 ]]; then sudo apt-get install python3-tk; fi
   - if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then sudo apt-get install python3-tk; fi
-
   #- sudo apt-get install tk-table
 
 # command to run tests
