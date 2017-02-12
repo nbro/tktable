@@ -1,3 +1,7 @@
+os:
+  - linux
+  - osx
+
 language: python
 
 python:
@@ -15,9 +19,9 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
-  - sudo apt-get install python-tk
-  - sudo apt-get install tk-table
-  
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install python-tk ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install tk-table ; fi
+
 # command to run tests
 script:
   - ./travis.sh
