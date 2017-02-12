@@ -18,8 +18,8 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install python-tk ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; sudo apt-get install tk-table ; fi
+  - sudo apt-get install python-tk
+  - sudo apt-get install tk-table
 
 # command to run tests
 script:
