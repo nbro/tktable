@@ -16,7 +16,8 @@ before_install:
   - sleep 3 # give xvfb some time to start
 
   - sudo apt-get install python-tk
-
+  - sudo apt-get install tk-table
+  
 # command to run tests
 script:
   - ./travis.sh
