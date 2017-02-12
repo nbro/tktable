@@ -11,7 +11,7 @@ python:
   - "3.6"
 
 before_install:
-  - apt-get install python-tk
+  - sudo apt-get install python-tk
 
 # command to run tests
 script:
