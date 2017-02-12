@@ -122,7 +122,7 @@ class Table(tkinter.Widget):
                 print("\033[93mThe Tcl/Tk extension named 'Tktable' is not installed in your system.\n"
                       "You need first to install it to use this wrapper library.\n"
                       "If you're seeing this message, you probably downloaded this module from "
-                      "this Github's repository 'https://github.com/nelson-brochado/tktable'.\033[0m\n")
+                      "this Github's repository 'https://github.com/nbro/tktable'.\033[0m\n")
             _TKTABLE_LOADED = True
         tkinter.Widget.__init__(self, master, 'table', kw)
 
