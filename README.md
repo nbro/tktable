@@ -1,7 +1,6 @@
 # tktable
 
 [![Python 2, 3](https://img.shields.io/badge/python-2%2C%203-blue.svg)](https://www.python.org/downloads/)
-[![Build Status](https://travis-ci.org/nbro/tktable.svg?branch=master)](https://travis-ci.org/nbro/tktable)
 [![license](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](./LICENSE.md)
 
 This is a wrapper library for Python of the homonymous Tcl/Tk library written by [Guilherme Polo](https://github.com/gpip).

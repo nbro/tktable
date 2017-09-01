@@ -1,14 +1,8 @@
-# Files
-
 *.egg
+*.egg-info/
 *.py[cod]
 *$py.class
-.DS_Store
-
-
-# Directories
-
-.idea/
-venv/
-*.egg-info/
 __pycache__/
+venv/
+.idea/
+.DS_Store

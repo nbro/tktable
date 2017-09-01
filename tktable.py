@@ -90,7 +90,8 @@ class ArrayVar(tkinter.Variable):
         return self._tk.globalgetvar(str(self), str(key))
 
     def set(self, **kw):
-        self._tk.call('array', 'set', str(self), tkinter._flatten(list(kw.items())))
+        self._tk.call('array', 'set', str(self),
+                      tkinter._flatten(list(kw.items())))
 
     def unset(self, pattern=None):
         """Unsets all of the elements in the array. If pattern is given, only
@@ -104,10 +105,14 @@ _TKTABLE_LOADED = False
 class Table(tkinter.Widget):
     """Create and manipulate tables."""
 
-    _switches = ('holddimensions', 'holdselection', 'holdtags', 'holdwindows', 'keeptitles', '-')
+    _switches = (
+        'holddimensions', 'holdselection', 'holdtags', 'holdwindows',
+        'keeptitles',
+        '-')
     _tabsubst_format = ('%c', '%C', '%i', '%r', '%s', '%S', '%W')
     _tabsubst_commands = ('browsecommand', 'browsecmd', 'command',
-                          'selectioncommand', 'selcmd', 'validatecommand', 'valcmd')
+                          'selectioncommand', 'selcmd', 'validatecommand',
+                          'valcmd')
 
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
@@ -117,7 +122,8 @@ class Table(tkinter.Widget):
 
             tktable_lib = os.environ.get('TKTABLE_LIBRARY')
             if tktable_lib:
-                master.tk.eval('global auto_path; lappend auto_path {%s}' % tktable_lib)
+                master.tk.eval(
+                    'global auto_path; lappend auto_path {%s}' % tktable_lib)
 
             try:
                 master.tk.call('package', 'require', 'Tktable')
@@ -137,7 +143,8 @@ class Table(tkinter.Widget):
         for k, v in cnf.items():
             if isinstance(v, collections.Callable):
                 if k in self._tabsubst_commands:
-                    v = "%s %s" % (self._register(v, self._tabsubst), ' '.join(self._tabsubst_format))
+                    v = "%s %s" % (self._register(v, self._tabsubst),
+                                   ' '.join(self._tabsubst_format))
                 else:
                     v = self._register(v)
             res += ('-%s' % k, v)
@@ -238,7 +245,7 @@ class Table(tkinter.Widget):
     def height(self, row=None, **kwargs):
         """If row and kwargs are not given, a list describing all rows for
         which a width has been set is returned.
-        If row is given, the height of that row is returnd.
+        If row is given, the height of that row is returned.
         If kwargs is given, then it sets the key/value pairs, where key is a
         row and value represents the height for the row."""
         if row is None and not kwargs:
@@ -278,7 +285,7 @@ class Table(tkinter.Widget):
             return int(res)
 
     def insert_active(self, index, value):
-        """The value is a text string which is inserted at the index postion
+        """The value is a text string which is inserted at the index position
         of the active cell. The cursor is then positioned after the new text.
         index can be a number, insert or end. """
         self.tk.call(self._w, 'insert', 'active', index, value)
@@ -327,7 +334,8 @@ class Table(tkinter.Widget):
         self.tk.call(self._w, 'selection', 'clear', first, last)
 
     def selection_includes(self, index):
-        return self.getboolean(self.tk.call(self._w, 'selection', 'includes', index))
+        return self.getboolean(
+            self.tk.call(self._w, 'selection', 'includes', index))
 
     def selection_set(self, first, last=None):
         self.tk.call(self._w, 'selection', 'set', first, last)
@@ -390,14 +398,16 @@ class Table(tkinter.Widget):
         kwargs is given then it corresponds to option-value pairs that should
         be modified."""
         if option is None and not kwargs:
-            split1 = self.tk.splitlist(self.tk.call(self._w, 'tag', 'configure', tagname))
+            split1 = self.tk.splitlist(
+                self.tk.call(self._w, 'tag', 'configure', tagname))
             result = {}
             for item in split1:
                 res = self.tk.splitlist(item)
                 result[res[0]] = res[1:]
             return result
         elif option:
-            return self.tk.call(self._w, 'tag', 'configure', tagname, '-%s' % option)
+            return self.tk.call(self._w, 'tag', 'configure', tagname,
+                                '-%s' % option)
         else:
             args = ()
             for key, val in kwargs.items():
@@ -411,7 +421,8 @@ class Table(tkinter.Widget):
         return self.getboolean(self.tk.call(self._w, 'tag', 'exists', tagname))
 
     def tag_includes(self, tagname, index):
-        return self.getboolean(self.tk.call(self._w, 'tag', 'includes', tagname, index))
+        return self.getboolean(
+            self.tk.call(self._w, 'tag', 'includes', tagname, index))
 
     def tag_lower(self, tagname, belowthis=None):
         self.tk.call(self._w, 'tag', 'lower', belowthis)
@@ -439,7 +450,7 @@ class Table(tkinter.Widget):
     def width(self, column=None, **kwargs):
         """If column and kwargs are not given, a dict describing all columns
         for which a width has been set is returned.
-        If column is given, the width of that column is returnd.
+        If column is given, the width of that column is returned.
         If kwargs is given, then it sets the key/value pairs, where key is a
         column and value represents the width for the column."""
         if column is None and not kwargs:
@@ -466,7 +477,8 @@ class Table(tkinter.Widget):
         if option is None and not kwargs:
             return self.tk.call(self._w, 'window', 'configure', index)
         elif option:
-            return self.tk.call(self._w, 'window', 'configure', index, '-%s' % option)
+            return self.tk.call(self._w, 'window', 'configure', index,
+                                '-%s' % option)
         else:
             args = ()
             for key, val in kwargs.items():
