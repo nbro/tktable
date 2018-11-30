@@ -31,7 +31,10 @@ tcl arrays that are, in some instances, required by tktable.
 __author__ = "Guilherme Polo <ggpolo@gmail.com>"
 __all__ = ["ArrayVar", "Table"]
 
-import collections
+try:
+	from collections.abc import Callable
+except ImportError:
+	from collections import Callable
 import os
 
 try:
@@ -141,7 +144,7 @@ class Table(tkinter.Widget):
             cnf = tkinter._cnfmerge(cnf)
         res = ()
         for k, v in cnf.items():
-            if isinstance(v, collections.Callable):
+            if isinstance(v, Callable):
                 if k in self._tabsubst_commands:
                     v = "%s %s" % (self._register(v, self._tabsubst),
                                    ' '.join(self._tabsubst_format))
