@@ -8,7 +8,7 @@ This is a wrapper library for Python of the homonymous Tcl/Tk library written by
 ## Notes and warnings
 
 - This is a wrapper library of an **extension library** for the [Tk widget toolkit](https://en.wikipedia.org/wiki/Tk_(software)). This means that before using this Python module you need to have installed the corresponding Tk library.
-- on windows the Tk toolkit can be found as part of the [ActiveTcl] (https://www.activestate.com/products/activetcl/) distribution, ensure you download the same version as your python install (32 bit or 64 bit)
+- on windows the Tk toolkit can be found as part of the [ActiveTcl](https://www.activestate.com/products/activetcl/) distribution, ensure you download the same version as your python install (32 bit or 64 bit)
 - The original tktable library could not be anymore maintained or maintained rarely and this also means that if you need support about it or you want to report a bug, nobody could listen to you. Use this library at your own risk!
 
 - This repository only tries to _make more visible_ this wrapper library to Python users. Eventually it can also be a good way to _start maintaining it_ and a _help center_ for the Python community that would like to use this library.
