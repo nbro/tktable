@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "tktable"
+version = "0.1.0"
+description = "Wrapper library for Python of the homonymous Tk library."
+authors = ["Guilherme Polo <ggpolo@gmail.com>"]
+maintainers = ["nbro <https://nbro.gitlab.io/>"]
+repository = "https://github.com/nbro/tktable"
+license = "BSD-2-Clause"
+readme = "README.md"
+
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Wrapper library",
+    "Operating System :: MacOS :: Mac OS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: Microsoft :: Linux"
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+isort = "^5.12.0"
+pylint = "^2.17.5"
+mypy = "^1.5.1"
+pytest = "^7.4.0"
+coverage = "^7.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

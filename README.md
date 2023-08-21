@@ -33,6 +33,10 @@ You could also, for example, copy the module to the `site-packages` folder under
 
 The issue tracker contains some potentially useful info on how to solve certain installation issues. In particular, read [this comment](https://github.com/nbro/tktable/issues/1#issuecomment-244519589).
 
+## Development
+
+I use [poetry](https://python-poetry.org/) to manage the dependencies and packaging.
+
 ## TODO
 
 See [here](https://github.com/nbro/tktable/issues/7).
