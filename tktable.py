@@ -88,9 +88,8 @@ class ArrayVar(tkinter.Variable):
             return dict(list(zip(flatten_pairs[::2], flatten_pairs[1::2])))
         return self._tk.globalgetvar(str(self), str(key))
 
-    def set(
-        self, **kw
-    ):  # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
+    # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
+    def set(self, **kw):
         self._tk.call("array", "set", str(self), tkinter._flatten(list(kw.items())))
 
     def unset(self, pattern=None):
@@ -127,7 +126,7 @@ class Table(tkinter.Widget):
 
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
-        global _TKTABLE_LOADED
+        global _TKTABLE_LOADED  # pylint: disable=global-statement  # TODO: can we get rid of this global?
 
         if not _TKTABLE_LOADED:
             tktable_lib = os.environ.get("TKTABLE_LIBRARY")
