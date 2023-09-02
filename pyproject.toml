@@ -12,14 +12,15 @@ classifiers=[
     "Development Status :: 4 - Beta",
     "Environment :: Console",
     "Intended Audience :: Developers",
-    "Topic :: Software Development :: Wrapper library",
-    "Operating System :: MacOS :: Mac OS X",
+    "Topic :: Software Development :: User Interfaces",
+    "Topic :: Software Development :: Libraries :: Tcl Extensions",
+    "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
-    "Operating System :: Microsoft :: Linux"
+    "Operating System :: POSIX :: Linux"
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.8"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
