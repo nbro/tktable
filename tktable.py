@@ -1,3 +1,4 @@
+# pylint: disable=missing-function-docstring, protected-access, inconsistent-return-statements
 # Copyright (c) 2008, Guilherme Polo
 # All rights reserved.
 #
@@ -35,6 +36,9 @@ import collections
 import os
 import tkinter
 
+# TODO: consider solving the inconsistent-return-statements in more appropriate ways,
+#  e.g. split a method into 2, etc.
+
 
 def _setup_master(master):
     if master is None:
@@ -55,6 +59,7 @@ class ArrayVar(tkinter.Variable):
     some dict operations.
     """
 
+    # pylint: disable=super-init-not-called  # TODO: can this be solve more properly?
     def __init__(self, master=None, name=None):
         # Tkinter.Variable.__init__ is not called on purpose! I don't wanna
         # see an ugly _default value in the pretty array.
@@ -63,7 +68,7 @@ class ArrayVar(tkinter.Variable):
         if name:
             self._name = name
         else:
-            self._name = "PY_VAR%s" % id(self)
+            self._name = f"PY_VAR{id(self)}"
 
     def __del__(self):
         if bool(self._tk.call("info", "exists", self._name)):
@@ -87,6 +92,7 @@ class ArrayVar(tkinter.Variable):
             return dict(list(zip(flatten_pairs[::2], flatten_pairs[1::2])))
         return self._tk.globalgetvar(str(self), str(key))
 
+    # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
     def set(self, **kw):
         self._tk.call("array", "set", str(self), tkinter._flatten(list(kw.items())))
 
@@ -99,6 +105,7 @@ class ArrayVar(tkinter.Variable):
 _TKTABLE_LOADED = False
 
 
+# pylint: disable=too-many-public-methods
 class Table(tkinter.Widget):
     """Create and manipulate tables."""
 
@@ -123,12 +130,12 @@ class Table(tkinter.Widget):
 
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
-        global _TKTABLE_LOADED
+        global _TKTABLE_LOADED  # pylint: disable=global-statement  # TODO: can we get rid of this global?
 
         if not _TKTABLE_LOADED:
             tktable_lib = os.environ.get("TKTABLE_LIBRARY")
             if tktable_lib:
-                master.tk.eval("global auto_path; lappend auto_path {%s}" % tktable_lib)
+                master.tk.eval(f"global auto_path; lappend auto_path {{{tktable_lib}}}")
 
             try:
                 master.tk.call("package", "require", "Tktable")
@@ -137,6 +144,8 @@ class Table(tkinter.Widget):
                 _TKTABLE_LOADED = False
 
         # This raises a tkinter._tkinter.TclError if Tktable is not installed!!!
+        # TODO: catch that exception and raise a more useful exception
+        #  that helps the users to solve the issue.
         tkinter.Widget.__init__(self, master, "table", kw)
 
     def _options(self, cnf, kw=None):
@@ -148,26 +157,23 @@ class Table(tkinter.Widget):
         for k, v in cnf.items():
             if isinstance(v, collections.Callable):
                 if k in self._tabsubst_commands:
-                    v = "%s %s" % (
-                        self._register(v, self._tabsubst),
-                        " ".join(self._tabsubst_format),
-                    )
+                    v = f"{self._register(v, self._tabsubst)} {' '.join(self._tabsubst_format)}"
                 else:
                     v = self._register(v)
-            res += ("-%s" % k, v)
+            res += (f"-{k}", v)
         return res
 
     def _tabsubst(self, *args):
         if len(args) != len(self._tabsubst_format):
             return args
         tk = self.tk
-        c, C, i, r, s, S, W = args
+        c, C, i, r, s, S, W = args  # pylint: disable=unused-variable
         e = tkinter.Event()
         e.widget = self
         e.c = tk.getint(c)
         e.i = tk.getint(i)
         e.r = tk.getint(r)
-        e.C = "%d,%d" % (e.r, e.c)
+        e.C = f"{e.r:d},{e.c:d}"
         e.s = s
         e.S = S
         try:
@@ -178,7 +184,7 @@ class Table(tkinter.Widget):
 
     def _handle_switches(self, args):
         args = args or ()
-        return tuple(("-%s" % x) for x in args if x in self._switches)
+        return tuple(f"-{x}" for x in args if x in self._switches)
 
     def activate(self, index):
         """Set the active cell to the one indicated by index."""
@@ -258,7 +264,7 @@ class Table(tkinter.Widget):
         if row is None and not kwargs:
             pairs = self.tk.splitlist(self.tk.call(self._w, "height"))
             return dict(pair.split() for pair in pairs)
-        elif row:
+        if row:
             return int(self.tk.call(self._w, "height", str(row)))
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, "height", *args)
@@ -288,8 +294,7 @@ class Table(tkinter.Widget):
         res = self.tk.call(self._w, "index", index, rc)
         if rc is None:
             return res
-        else:
-            return int(res)
+        return int(res)
 
     def insert_active(self, index, value):
         """The value is a text string which is inserted at the index position
@@ -337,6 +342,7 @@ class Table(tkinter.Widget):
     def selection_anchor(self, index):
         self.tk.call(self._w, "selection", "anchor", index)
 
+    # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
     def selection_clear(self, first, last=None):
         self.tk.call(self._w, "selection", "clear", first, last)
 
@@ -346,7 +352,7 @@ class Table(tkinter.Widget):
     def selection_set(self, first, last=None):
         self.tk.call(self._w, "selection", "set", first, last)
 
-    def set(self, rc=None, index=None, *args, **kwargs):
+    def set(self, *args, rc=None, index=None, **kwargs):
         """If rc is specified (either 'row' or 'col') then it is assumes that
         args (if given) represents values which will be set into the
         subsequent columns (if row is specified) or rows (for col).
@@ -390,7 +396,7 @@ class Table(tkinter.Widget):
         return self.tk.call(self._w, "tag", "cell", tagname, *args)
 
     def tag_cget(self, tagname, option):
-        return self.tk.call(self._w, "tag", "cget", tagname, "-%s" % option)
+        return self.tk.call(self._w, "tag", "cget", tagname, f"-{option}")
 
     def tag_col(self, tagname, *args):
         return self.tk.call(self._w, "tag", "col", tagname, *args)
@@ -412,13 +418,12 @@ class Table(tkinter.Widget):
                 res = self.tk.splitlist(item)
                 result[res[0]] = res[1:]
             return result
-        elif option:
-            return self.tk.call(self._w, "tag", "configure", tagname, "-%s" % option)
-        else:
-            args = ()
-            for key, val in kwargs.items():
-                args += ("-%s" % key, val)
-            self.tk.call(self._w, "tag", "configure", tagname, *args)
+        if option:
+            return self.tk.call(self._w, "tag", "configure", tagname, f"-{option}")
+        args = ()
+        for key, val in kwargs.items():
+            args += (f"-{key}", val)
+        self.tk.call(self._w, "tag", "configure", tagname, *args)
 
     def tag_delete(self, tagname):
         self.tk.call(self._w, "tag", "delete", tagname)
@@ -429,7 +434,7 @@ class Table(tkinter.Widget):
     def tag_includes(self, tagname, index):
         return self.getboolean(self.tk.call(self._w, "tag", "includes", tagname, index))
 
-    def tag_lower(self, tagname, belowthis=None):
+    def tag_lower(self, tagname, belowthis=None):  # pylint: disable=unused-argument
         self.tk.call(self._w, "tag", "lower", belowthis)
 
     def tag_names(self, pattern=None):
@@ -461,7 +466,7 @@ class Table(tkinter.Widget):
         if column is None and not kwargs:
             pairs = self.tk.splitlist(self.tk.call(self._w, "width"))
             return dict(pair.split() for pair in pairs)
-        elif column is not None:
+        if column is not None:
             return int(self.tk.call(self._w, "width", str(column)))
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, "width", *args)
@@ -481,13 +486,12 @@ class Table(tkinter.Widget):
         be modified."""
         if option is None and not kwargs:
             return self.tk.call(self._w, "window", "configure", index)
-        elif option:
-            return self.tk.call(self._w, "window", "configure", index, "-%s" % option)
-        else:
-            args = ()
-            for key, val in kwargs.items():
-                args += ("-%s" % key, val)
-            self.tk.call(self._w, "window", "configure", index, *args)
+        if option:
+            return self.tk.call(self._w, "window", "configure", index, f"-{option}")
+        args = ()
+        for key, val in kwargs.items():
+            args += (f"-{key}", val)
+        self.tk.call(self._w, "window", "configure", index, *args)
 
     def window_delete(self, *indexes):
         self.tk.call(self._w, "window", "delete", *indexes)
@@ -570,71 +574,3 @@ class Table(tkinter.Widget):
             self.tk.call(self._w, "yview", "scroll", howMany, units)
         elif op == "moveto":
             self.tk.call(self._w, "yview", "moveto", howMany)
-
-
-# Sample test taken from tktable cvs, original tktable python wrapper
-def sample_test():
-    from tkinter import Button, Label, Tk
-
-    def test_cmd(event):
-        if event.i == 0:
-            return "%i, %i" % (event.r, event.c)
-        else:
-            return "set"
-
-    def browsecmd(event):
-        print("event:", event.__dict__)
-        print("curselection:", test.curselection())
-        print("active cell index:", test.index("active"))
-        print("active:", test.index("active", "row"))
-        print("anchor:", test.index("anchor", "row"))
-
-    root = Tk()
-
-    var = ArrayVar(root)
-    for y in range(-1, 4):
-        for x in range(-1, 5):
-            index = "%i,%i" % (y, x)
-            var[index] = index
-
-    label = Label(root, text="Proof-of-existence test for Tktable")
-    label.pack(side="top", fill="x")
-
-    quit = Button(root, text="QUIT", command=root.destroy)
-    quit.pack(side="bottom", fill="x")
-
-    test = Table(
-        root,
-        rows=10,
-        cols=5,
-        state="disabled",
-        width=6,
-        height=6,
-        titlerows=1,
-        titlecols=1,
-        roworigin=-1,
-        colorigin=-1,
-        selectmode="browse",
-        selecttype="row",
-        rowstretch="unset",
-        colstretch="last",
-        browsecmd=browsecmd,
-        flashmode="on",
-        variable=var,
-        usecommand=0,
-        command=test_cmd,
-    )
-    test.pack(expand=1, fill="both")
-    test.tag_configure("sel", background="yellow")
-    test.tag_configure("active", background="blue")
-    test.tag_configure("title", anchor="w", bg="red", relief="sunken")
-
-    import sys
-
-    if "-test" in sys.argv:
-        root.after(1000, lambda: root.destroy())
-    root.mainloop()
-
-
-if __name__ == "__main__":
-    sample_test()
