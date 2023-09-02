@@ -1,4 +1,5 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring
+import logging
 import sys
 from tkinter import Button, Label, Tk
 
@@ -65,4 +66,5 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     main()
