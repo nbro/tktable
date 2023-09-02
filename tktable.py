@@ -100,6 +100,7 @@ class ArrayVar(tkinter.Variable):
 _TKTABLE_LOADED = False
 
 
+# pylint: disable=too-many-public-methods
 class Table(tkinter.Widget):
     """Create and manipulate tables."""
 
