@@ -1,4 +1,4 @@
-# pylint: disable=missing-function-docstring, protected-access
+# pylint: disable=missing-function-docstring, protected-access, inconsistent-return-statements
 # Copyright (c) 2008, Guilherme Polo
 # All rights reserved.
 #
@@ -35,6 +35,9 @@ __all__ = ["ArrayVar", "Table"]
 import collections
 import os
 import tkinter
+
+# TODO: consider solving the inconsistent-return-statements in more appropriate ways,
+#  e.g. split a method into 2, etc.
 
 
 def _setup_master(master):
