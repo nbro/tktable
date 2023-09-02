@@ -33,11 +33,7 @@ __all__ = ["ArrayVar", "Table"]
 
 import collections
 import os
-
-try:
-    import tkinter
-except ImportError:
-    import Tkinter as tkinter
+import tkinter
 
 
 def _setup_master(master):
@@ -578,10 +574,7 @@ class Table(tkinter.Widget):
 
 # Sample test taken from tktable cvs, original tktable python wrapper
 def sample_test():
-    try:
-        from tkinter import Button, Label, Tk
-    except ImportError:
-        from Tkinter import Button, Label, Tk
+    from tkinter import Button, Label, Tk
 
     def test_cmd(event):
         if event.i == 0:
