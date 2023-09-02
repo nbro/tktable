@@ -594,8 +594,8 @@ def sample_test():
     label = Label(root, text="Proof-of-existence test for Tktable")
     label.pack(side="top", fill="x")
 
-    quit = Button(root, text="QUIT", command=root.destroy)
-    quit.pack(side="bottom", fill="x")
+    quit_ = Button(root, text="QUIT", command=root.destroy)
+    quit_.pack(side="bottom", fill="x")
 
     test = Table(
         root,
