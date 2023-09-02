@@ -56,6 +56,7 @@ class ArrayVar(tkinter.Variable):
     some dict operations.
     """
 
+    # pylint: disable=super-init-not-called  # TODO: can this be solve more properly?
     def __init__(self, master=None, name=None):
         # Tkinter.Variable.__init__ is not called on purpose! I don't wanna
         # see an ugly _default value in the pretty array.
