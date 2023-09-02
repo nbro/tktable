@@ -426,7 +426,7 @@ class Table(tkinter.Widget):
     def tag_includes(self, tagname, index):
         return self.getboolean(self.tk.call(self._w, "tag", "includes", tagname, index))
 
-    def tag_lower(self, tagname, belowthis=None):
+    def tag_lower(self, tagname, belowthis=None):  # pylint: disable=unused-argument
         self.tk.call(self._w, "tag", "lower", belowthis)
 
     def tag_names(self, pattern=None):
