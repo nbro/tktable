@@ -1,10 +1,11 @@
+# pylint: disable=missing-module-docstring, missing-function-docstring, invalid-name
+import sys
+from tkinter import Button, Label, Tk
+
 from tktable import ArrayVar, Table
 
 
-# Sample test taken from tktable cvs, original tktable python wrapper
-def sample_test():
-    from tkinter import Button, Label, Tk
-
+def main():
     def test_cmd(event):
         if event.i == 0:
             return f"{event.r:d}, {event.c:d}"
@@ -57,12 +58,11 @@ def sample_test():
     test.tag_configure("active", background="blue")
     test.tag_configure("title", anchor="w", bg="red", relief="sunken")
 
-    import sys
-
     if "-test" in sys.argv:
-        root.after(1000, lambda: root.destroy())
+        root.after(1000, lambda: root.destroy())  # pylint: disable=unnecessary-lambda
+
     root.mainloop()
 
 
 if __name__ == "__main__":
-    sample_test()
+    main()
