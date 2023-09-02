@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 # Copyright (c) 2008, Guilherme Polo
 # All rights reserved.
 #
