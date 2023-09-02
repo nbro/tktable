@@ -141,6 +141,8 @@ class Table(tkinter.Widget):
                 _TKTABLE_LOADED = False
 
         # This raises a tkinter._tkinter.TclError if Tktable is not installed!!!
+        # TODO: catch that exception and raise a more useful exception
+        #  that helps the users to solve the issue.
         tkinter.Widget.__init__(self, master, "table", kw)
 
     def _options(self, cnf, kw=None):
