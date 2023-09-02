@@ -7,16 +7,22 @@ A module that contains a Python wrapper class for the Tcl/tk tktable widget.
 
 
 import collections
+import logging
 import os
 import tkinter
 
 from tktable.utils import _setup_master
 
+logger = logging.getLogger(__name__)
+
 # TODO: consider solving the inconsistent-return-statements in more appropriate ways,
 #  e.g. split a method into 2, etc.
 
 
-_TKTABLE_LOADED = False
+class CannotUseError(RuntimeError):
+    """
+    The exception raised when you cannot use the Table because of missing dependencies.
+    """
 
 
 # pylint: disable=too-many-public-methods
@@ -44,23 +50,34 @@ class Table(tkinter.Widget):
 
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
-        global _TKTABLE_LOADED  # pylint: disable=global-statement  # TODO: can we get rid of this global?
 
-        if not _TKTABLE_LOADED:
-            tktable_lib = os.environ.get("TKTABLE_LIBRARY")
-            if tktable_lib:
-                master.tk.eval(f"global auto_path; lappend auto_path {{{tktable_lib}}}")
+        env_var = os.environ.get("TKTABLE_LIBRARY")
+        if env_var:
+            logger.info("Add %s to auto_path", env_var)
+            master.tk.eval(f"global auto_path; lappend auto_path {{{env_var}}}")
+        else:
+            logger.info("The environment variable TKTABLE_LIBRARY is not defined.")
 
-            try:
-                master.tk.call("package", "require", "Tktable")
-                _TKTABLE_LOADED = True
-            except tkinter._tkinter.TclError:
-                _TKTABLE_LOADED = False
+        try:
+            logger.info("Require the Tcl/Tk widget: tktable.")
 
-        # This raises a tkinter._tkinter.TclError if Tktable is not installed!!!
-        # TODO: catch that exception and raise a more useful exception
-        #  that helps the users to solve the issue.
-        tkinter.Widget.__init__(self, master, "table", kw)
+            # https://wiki.tcl-lang.org/page/package+require
+            master.tk.call("package", "require", "Tktable")
+
+            tkinter.Widget.__init__(self, master, "table", kw)
+        except tkinter.TclError as exc:
+            raise CannotUseError(
+                f"You cannot instantiate {self.__class__.__name__} "
+                f"unless you have installed in your system the following tools:\n"
+                "1. Tcl (a programming language: https://www.tcl-lang.org/)\n"
+                "2. Tk (a Tcl package to create and manipulate GUI widgets)\n"
+                "3. Tkinter (a Python interface to Tk: "
+                "https://docs.python.org/3/library/tkinter.html), "
+                "which is installed.\n"
+                "4. The original Tk widget: tktable,\n"
+                "which you may be able to install using the instructions here:\n"
+                "https://github.com/nbro/tktable/issues/1#issuecomment-244519589."
+            ) from exc
 
     def _options(self, cnf, kw=None):
         if kw:
