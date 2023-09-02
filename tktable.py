@@ -256,7 +256,7 @@ class Table(tkinter.Widget):
         if row is None and not kwargs:
             pairs = self.tk.splitlist(self.tk.call(self._w, "height"))
             return dict(pair.split() for pair in pairs)
-        elif row:
+        if row:
             return int(self.tk.call(self._w, "height", str(row)))
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, "height", *args)
@@ -286,8 +286,7 @@ class Table(tkinter.Widget):
         res = self.tk.call(self._w, "index", index, rc)
         if rc is None:
             return res
-        else:
-            return int(res)
+        return int(res)
 
     def insert_active(self, index, value):
         """The value is a text string which is inserted at the index position
@@ -410,13 +409,12 @@ class Table(tkinter.Widget):
                 res = self.tk.splitlist(item)
                 result[res[0]] = res[1:]
             return result
-        elif option:
+        if option:
             return self.tk.call(self._w, "tag", "configure", tagname, f"-{option}")
-        else:
-            args = ()
-            for key, val in kwargs.items():
-                args += (f"-{key}", val)
-            self.tk.call(self._w, "tag", "configure", tagname, *args)
+        args = ()
+        for key, val in kwargs.items():
+            args += (f"-{key}", val)
+        self.tk.call(self._w, "tag", "configure", tagname, *args)
 
     def tag_delete(self, tagname):
         self.tk.call(self._w, "tag", "delete", tagname)
@@ -459,7 +457,7 @@ class Table(tkinter.Widget):
         if column is None and not kwargs:
             pairs = self.tk.splitlist(self.tk.call(self._w, "width"))
             return dict(pair.split() for pair in pairs)
-        elif column is not None:
+        if column is not None:
             return int(self.tk.call(self._w, "width", str(column)))
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, "width", *args)
@@ -479,13 +477,12 @@ class Table(tkinter.Widget):
         be modified."""
         if option is None and not kwargs:
             return self.tk.call(self._w, "window", "configure", index)
-        elif option:
+        if option:
             return self.tk.call(self._w, "window", "configure", index, f"-{option}")
-        else:
-            args = ()
-            for key, val in kwargs.items():
-                args += (f"-{key}", val)
-            self.tk.call(self._w, "window", "configure", index, *args)
+        args = ()
+        for key, val in kwargs.items():
+            args += (f"-{key}", val)
+        self.tk.call(self._w, "window", "configure", index, *args)
 
     def window_delete(self, *indexes):
         self.tk.call(self._w, "window", "delete", *indexes)
@@ -577,8 +574,7 @@ def sample_test():
     def test_cmd(event):
         if event.i == 0:
             return f"{event.r:d}, {event.c:d}"
-        else:
-            return "set"
+        return "set"
 
     def browsecmd(event):
         print("event:", event.__dict__)
