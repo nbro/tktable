@@ -1,105 +1,19 @@
 # pylint: disable=missing-function-docstring, protected-access, inconsistent-return-statements
-# Copyright (c) 2008, Guilherme Polo
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#
-#  * Redistributions of source code must retain the above copyright notice,
-#    this list of conditions and the following disclaimer.
-#
-#  * Redistributions in binary form must reproduce the above copyright notice,
-#    this list of conditions and the following disclaimer in the documentation
-#    and/or other materials provided with the distribution.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-# POSSIBILITY OF SUCH DAMAGE.
+
 
 """
-This contains a wrapper class for the tktable widget as well a class for using
-tcl arrays that are, in some instances, required by tktable.
+A module that contains a Python wrapper class for the Tcl/tk tktable widget.
 """
 
-__author__ = "Guilherme Polo <ggpolo@gmail.com>"
-__all__ = ["ArrayVar", "Table"]
 
 import collections
 import os
 import tkinter
 
+from tktable.utils import _setup_master
+
 # TODO: consider solving the inconsistent-return-statements in more appropriate ways,
 #  e.g. split a method into 2, etc.
-
-
-def _setup_master(master):
-    if master is None:
-        if tkinter._support_default_root:
-            master = tkinter._default_root or tkinter.Tk()
-        else:
-            raise RuntimeError(
-                "No master specified and Tkinter is "
-                "configured to not support default master"
-            )
-    return master
-
-
-class ArrayVar(tkinter.Variable):
-    """Class for handling Tcl arrays.
-
-    An array is actually an associative array in Tcl, so this class supports
-    some dict operations.
-    """
-
-    # pylint: disable=super-init-not-called  # TODO: can this be solve more properly?
-    def __init__(self, master=None, name=None):
-        # Tkinter.Variable.__init__ is not called on purpose! I don't wanna
-        # see an ugly _default value in the pretty array.
-        self._master = _setup_master(master)
-        self._tk = self._master.tk
-        if name:
-            self._name = name
-        else:
-            self._name = f"PY_VAR{id(self)}"
-
-    def __del__(self):
-        if bool(self._tk.call("info", "exists", self._name)):
-            self._tk.globalunsetvar(self._name)
-
-    def __len__(self):
-        return int(self._tk.call("array", "size", str(self)))
-
-    def __getitem__(self, key):
-        return self.get(key)
-
-    def __setitem__(self, key, value):
-        self.set(**{str(key): value})
-
-    def names(self):
-        return self._tk.call("array", "names", self._name)
-
-    def get(self, key=None):
-        if key is None:
-            flatten_pairs = self._tk.call("array", "get", str(self))
-            return dict(list(zip(flatten_pairs[::2], flatten_pairs[1::2])))
-        return self._tk.globalgetvar(str(self), str(key))
-
-    # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
-    def set(self, **kw):
-        self._tk.call("array", "set", str(self), tkinter._flatten(list(kw.items())))
-
-    def unset(self, pattern=None):
-        """Unsets all of the elements in the array. If pattern is given, only
-        the elements that match pattern are unset."""
-        self._tk.call("array", "unset", str(self), pattern)
 
 
 _TKTABLE_LOADED = False

@@ -17,9 +17,7 @@ If those dependencies are satisfied, you can proceed. It might be the case that 
 
 ## How to use?
 
-For now, just copy the file [`tktable.py`](tktable.py) to your working directory and import `tktable.py` normally. 
-
-You could also, for example, copy the module to the `site-packages` folder under your Python distribution, so that you don't have to copy everytime the module to all your projects.
+TODO
 
 ## WARNINGS
 
