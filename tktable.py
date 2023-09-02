@@ -88,7 +88,9 @@ class ArrayVar(tkinter.Variable):
             return dict(list(zip(flatten_pairs[::2], flatten_pairs[1::2])))
         return self._tk.globalgetvar(str(self), str(key))
 
-    def set(self, **kw):
+    def set(
+        self, **kw
+    ):  # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
         self._tk.call("array", "set", str(self), tkinter._flatten(list(kw.items())))
 
     def unset(self, pattern=None):
@@ -335,6 +337,7 @@ class Table(tkinter.Widget):
     def selection_anchor(self, index):
         self.tk.call(self._w, "selection", "anchor", index)
 
+    # pylint: disable=arguments-differ  # TODO: maybe consider calling this method differently?
     def selection_clear(self, first, last=None):
         self.tk.call(self._w, "selection", "clear", first, last)
 
