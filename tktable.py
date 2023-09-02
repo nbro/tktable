@@ -160,7 +160,7 @@ class Table(tkinter.Widget):
         if len(args) != len(self._tabsubst_format):
             return args
         tk = self.tk
-        c, C, i, r, s, S, W = args
+        c, C, i, r, s, S, W = args  # pylint: disable=unused-variable
         e = tkinter.Event()
         e.widget = self
         e.c = tk.getint(c)
