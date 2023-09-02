@@ -347,7 +347,7 @@ class Table(tkinter.Widget):
     def selection_set(self, first, last=None):
         self.tk.call(self._w, "selection", "set", first, last)
 
-    def set(self, rc=None, index=None, *args, **kwargs):
+    def set(self, *args, rc=None, index=None, **kwargs):
         """If rc is specified (either 'row' or 'col') then it is assumes that
         args (if given) represents values which will be set into the
         subsequent columns (if row is specified) or rows (for col).
