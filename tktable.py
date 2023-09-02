@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name, missing-function-docstring, protected-access
+# pylint: disable=missing-function-docstring, protected-access
 # Copyright (c) 2008, Guilherme Polo
 # All rights reserved.
 #

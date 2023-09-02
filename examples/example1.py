@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring, missing-function-docstring, invalid-name
+# pylint: disable=missing-module-docstring, missing-function-docstring
 import sys
 from tkinter import Button, Label, Tk
 
