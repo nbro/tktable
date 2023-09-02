@@ -63,7 +63,7 @@ class ArrayVar(tkinter.Variable):
         if name:
             self._name = name
         else:
-            self._name = "PY_VAR%s" % id(self)
+            self._name = f"PY_VAR{id(self)}"
 
     def __del__(self):
         if bool(self._tk.call("info", "exists", self._name)):
@@ -128,7 +128,7 @@ class Table(tkinter.Widget):
         if not _TKTABLE_LOADED:
             tktable_lib = os.environ.get("TKTABLE_LIBRARY")
             if tktable_lib:
-                master.tk.eval("global auto_path; lappend auto_path {%s}" % tktable_lib)
+                master.tk.eval(f"global auto_path; lappend auto_path {{{tktable_lib}}}")
 
             try:
                 master.tk.call("package", "require", "Tktable")
@@ -148,13 +148,10 @@ class Table(tkinter.Widget):
         for k, v in cnf.items():
             if isinstance(v, collections.Callable):
                 if k in self._tabsubst_commands:
-                    v = "%s %s" % (
-                        self._register(v, self._tabsubst),
-                        " ".join(self._tabsubst_format),
-                    )
+                    v = f"{self._register(v, self._tabsubst)} {' '.join(self._tabsubst_format)}"
                 else:
                     v = self._register(v)
-            res += ("-%s" % k, v)
+            res += (f"-{k}", v)
         return res
 
     def _tabsubst(self, *args):
@@ -167,7 +164,7 @@ class Table(tkinter.Widget):
         e.c = tk.getint(c)
         e.i = tk.getint(i)
         e.r = tk.getint(r)
-        e.C = "%d,%d" % (e.r, e.c)
+        e.C = f"{e.r:d},{e.c:d}"
         e.s = s
         e.S = S
         try:
@@ -178,7 +175,7 @@ class Table(tkinter.Widget):
 
     def _handle_switches(self, args):
         args = args or ()
-        return tuple(("-%s" % x) for x in args if x in self._switches)
+        return tuple(f"-{x}" for x in args if x in self._switches)
 
     def activate(self, index):
         """Set the active cell to the one indicated by index."""
@@ -390,7 +387,7 @@ class Table(tkinter.Widget):
         return self.tk.call(self._w, "tag", "cell", tagname, *args)
 
     def tag_cget(self, tagname, option):
-        return self.tk.call(self._w, "tag", "cget", tagname, "-%s" % option)
+        return self.tk.call(self._w, "tag", "cget", tagname, f"-{option}")
 
     def tag_col(self, tagname, *args):
         return self.tk.call(self._w, "tag", "col", tagname, *args)
@@ -413,11 +410,11 @@ class Table(tkinter.Widget):
                 result[res[0]] = res[1:]
             return result
         elif option:
-            return self.tk.call(self._w, "tag", "configure", tagname, "-%s" % option)
+            return self.tk.call(self._w, "tag", "configure", tagname, f"-{option}")
         else:
             args = ()
             for key, val in kwargs.items():
-                args += ("-%s" % key, val)
+                args += (f"-{key}", val)
             self.tk.call(self._w, "tag", "configure", tagname, *args)
 
     def tag_delete(self, tagname):
@@ -482,11 +479,11 @@ class Table(tkinter.Widget):
         if option is None and not kwargs:
             return self.tk.call(self._w, "window", "configure", index)
         elif option:
-            return self.tk.call(self._w, "window", "configure", index, "-%s" % option)
+            return self.tk.call(self._w, "window", "configure", index, f"-{option}")
         else:
             args = ()
             for key, val in kwargs.items():
-                args += ("-%s" % key, val)
+                args += (f"-{key}", val)
             self.tk.call(self._w, "window", "configure", index, *args)
 
     def window_delete(self, *indexes):
@@ -578,7 +575,7 @@ def sample_test():
 
     def test_cmd(event):
         if event.i == 0:
-            return "%i, %i" % (event.r, event.c)
+            return f"{event.r:d}, {event.c:d}"
         else:
             return "set"
 
@@ -594,7 +591,7 @@ def sample_test():
     var = ArrayVar(root)
     for y in range(-1, 4):
         for x in range(-1, 5):
-            index = "%i,%i" % (y, x)
+            index = f"{y:d},{x:d}"
             var[index] = index
 
     label = Label(root, text="Proof-of-existence test for Tktable")
