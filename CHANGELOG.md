@@ -8,6 +8,9 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Type hints on the whole library, checked by mypy, and a `py.typed` marker so your type checker
+  and IDE use them (#21). Callbacks receive a documented `TableEvent`.
+
 - Windows installation docs: install Tktable with Magicsplat Tcl/Tk and set `TKTABLE_LIBRARY`,
   tested in CI with Python 3.11 to 3.15 (Tcl 8.6 and 9.0).
   Covers winget (Tcl 8.6), Chocolatey (Tcl 8.6 and 9.0) and Magicsplat's installer.
@@ -17,6 +20,9 @@ and the project uses [Semantic Versioning](https://semver.org/).
   listed in the docs, and a test that runs every example in CI.
 
 ### Changed
+
+- The library only uses tkinter's public API, instead of private helpers (`_w`, `_register`,
+  `_flatten`, ...) that may change between Python versions.
 
 - The `tags.py` example explains tag priority correctly (the tag created first wins) and shows
   how to style a single title cell with `tag_raise()` (#5). A new `flash.py` example shows the

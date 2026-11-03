@@ -27,7 +27,7 @@ To run it without installing Tktable, use Docker: see the instructions for
 ## Callbacks
 
 Callbacks such as `command`, `browsecommand` and `validatecommand` receive a
-{py:class}`tkinter.Event` with these attributes (the Tcl `%`-substitutions):
+{py:class}`~tktable.table.TableEvent`, with these attributes (the Tcl `%`-substitutions):
 
 | Attribute | Meaning |
 |---|---|

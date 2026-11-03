@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring, missing-function-docstring, redefined-outer-name
+# pylint: disable=missing-module-docstring, redefined-outer-name
 from __future__ import annotations
 
 import os

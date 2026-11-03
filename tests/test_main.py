@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring, missing-function-docstring
+# pylint: disable=missing-module-docstring
 import subprocess  # nosec B404: runs this package's own diagnostic
 import sys
 

@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring, missing-function-docstring, unused-argument
+# pylint: disable=missing-module-docstring, unused-argument
 import os
 import subprocess  # nosec B404: runs this repository's own examples
 import sys

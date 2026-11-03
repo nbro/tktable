@@ -40,8 +40,8 @@ DESCRIPTION = (
 COLUMNS = (
     ("Planet", "name", "{}"),
     ("Diameter (km)", "diameter_km", "{:,}"),
-    ("Mass (10²⁴ kg)", "mass_1e24_kg", "{:,}"),
-    ("Distance (10⁶ km)", "distance_from_sun_1e6_km", "{:,}"),
+    ("Mass (10^24 kg)", "mass_1e24_kg", "{:,}"),
+    ("Distance (10^6 km)", "distance_from_sun_1e6_km", "{:,}"),
     ("Day (hours)", "day_hours", "{:,}"),
     ("Year (days)", "year_days", "{:,}"),
     ("Moons", "moons", "{}"),
@@ -103,8 +103,6 @@ def style_table(
     table.tag_configure(
         "active", background=ACTIVE_BG, foreground=TEXT_FG, font=cell_font, anchor="w"
     )
-
-
 
 
 def add_spreadsheet_keys(table: Table, cell_font: font.Font) -> None:
@@ -188,7 +186,6 @@ def add_link(parent: tkinter.Misc, text: str, url: str) -> ttk.Label:
     link.font = link_font  # Keep a reference: Tk deletes unreferenced fonts.
     link.bind("<Button-1>", lambda _event: webbrowser.open(url))
     return link
-
 
 
 def main() -> None:

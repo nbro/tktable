@@ -32,7 +32,8 @@ easiest to understand.
 
 ## Code
 
-- Python >= 3.11, with type hints on new code.
+- Python >= 3.11, with type hints on every function of the library (mypy enforces it).
+- Use tkinter's public API; avoid its private helpers (names starting with `_`).
 - Use `logging` in the library, never `print` (except in the `python -m tktable` diagnostic, whose
   output is its result).
 - Add or update tests for every fix or feature, and the docs and `CHANGELOG.md` when behavior
