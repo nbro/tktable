@@ -27,6 +27,7 @@ System, from NASA's Planetary Fact Sheet (screenshot taken on Windows 11).
 - Cell values kept in an `ArrayVar` (a Tcl array), or computed on demand by a callback.
 - Styling with tags: colors, fonts, alignment and relief, for single cells, rows or columns.
 - Merged cells (spans), embedded widgets, and resizable rows and columns.
+- Cells that flash when their value changes, with a color of your choice.
 - Selection of cells, rows or columns; inserting and deleting rows and columns.
 - Callbacks when the active cell changes, to compute cell values, to validate edits, and to
   format the selection when it is copied.

@@ -15,7 +15,8 @@ from tktable import ArrayVar, Table
 DESCRIPTION = (
     "A tag is a named style. Row 1 has a tag with a yellow background and bold text, column 3 one "
     "with blue, right-aligned text, and cell 4,1 one that is raised, red and centered. Where tags "
-    "overlap, the one created later wins."
+    "overlap, the one created first wins, and the built-in tags (like title) are created first: "
+    "the title cell 0,2 only gets its own color because tag_raise() raises its tag above them."
 )
 ROWS, COLS = 6, 5
 
@@ -30,7 +31,14 @@ def main() -> None:
             cells[f"{row},{col}"] = f"{row},{col}"
 
     table = Table(
-        frame, rows=ROWS, cols=COLS, colwidth=10, rowstretch="all", colstretch="all", variable=cells
+        frame,
+        rows=ROWS,
+        cols=COLS,
+        titlerows=1,
+        colwidth=10,
+        rowstretch="all",
+        colstretch="all",
+        variable=cells,
     )
     table.pack(expand=True, fill="both")
 
@@ -45,6 +53,13 @@ def main() -> None:
 
     table.tag_configure("special_cell", background="#fecaca", relief="raised", anchor="center")
     table.tag_cell("special_cell", "4,1")
+
+    # Title cells have the built-in "title" tag, which has a higher priority than our tags: raise
+    # ours above it, or its color won't show.
+    table.tag_configure("title", background="#1e293b", foreground="#ffffff")
+    table.tag_configure("important_title", background="#4f46e5")
+    table.tag_cell("important_title", "0,2")
+    table.tag_raise("important_title")
 
     run(root)
 

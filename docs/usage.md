@@ -45,10 +45,11 @@ Each of these small examples shows one feature. Run one from the repository's ro
 | Example | Shows |
 |---|---|
 | [`callback_values.py`](https://github.com/nbro/tktable/blob/main/examples/callback_values.py) | Cell values computed on demand by a callback (`usecommand`, `command`) |
-| [`tags.py`](https://github.com/nbro/tktable/blob/main/examples/tags.py) | Styling cells, rows and columns with tags |
+| [`tags.py`](https://github.com/nbro/tktable/blob/main/examples/tags.py) | Styling cells, rows, columns and individual title cells with tags, and tag priority |
 | [`spans.py`](https://github.com/nbro/tktable/blob/main/examples/spans.py) | Merged cells (`spans`) |
 | [`embedded_widgets.py`](https://github.com/nbro/tktable/blob/main/examples/embedded_widgets.py) | Buttons and checkboxes inside cells (`window_configure`) |
 | [`resizing.py`](https://github.com/nbro/tktable/blob/main/examples/resizing.py) | Rows and columns resizable with the mouse (`resizeborders`), and sizes set in code |
 | [`selection.py`](https://github.com/nbro/tktable/blob/main/examples/selection.py) | Selecting cells, rows or columns, and `browsecommand` |
 | [`insert_delete.py`](https://github.com/nbro/tktable/blob/main/examples/insert_delete.py) | Inserting and deleting rows and columns |
+| [`flash.py`](https://github.com/nbro/tktable/blob/main/examples/flash.py) | Cells that flash when their value changes, with a custom color (`flashmode`, the `flash` tag) |
 | [`validation.py`](https://github.com/nbro/tktable/blob/main/examples/validation.py) | Rejecting invalid edits (`validate`, `validatecommand`) |

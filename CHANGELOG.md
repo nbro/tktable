@@ -18,6 +18,10 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The `tags.py` example explains tag priority correctly (the tag created first wins) and shows
+  how to style a single title cell with `tag_raise()` (#5). A new `flash.py` example shows the
+  red flash on changed cells (`flashmode`) and how to restyle or avoid it (#5).
+
 - The examples are run as modules from the repository's root, e.g.
   `poetry run python -m examples.planets`, and share their window setup (`examples/window.py`).
 - The example shows real data, the 8 planets from NASA's Planetary Fact Sheet, saved in
