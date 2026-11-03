@@ -6,6 +6,8 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-04
+
 ### Added
 
 - Type hints on the whole library, checked by mypy, and a `py.typed` marker so your type checker
@@ -96,5 +98,6 @@ First release on PyPI. These changes were made with the help of
 - `tktable/__init__.py` imports `ArrayVar` and `Table` lazily, so the diagnostic works
   without tkinter (explained in the module docstring).
 
-[Unreleased]: https://github.com/nbro/tktable/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/nbro/tktable/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/nbro/tktable/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/nbro/tktable/releases/tag/0.1.0
