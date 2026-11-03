@@ -11,7 +11,7 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - Windows installation docs: install Tktable with Magicsplat Tcl/Tk and set `TKTABLE_LIBRARY`,
   tested in CI with Python 3.11 to 3.15 (Tcl 8.6 and 9.0).
   Covers winget (Tcl 8.6), Chocolatey (Tcl 8.6 and 9.0) and Magicsplat's installer.
-- A screenshot of the example in the README and the docs.
+- A screenshot of the example, and a list of features, in the README and the docs.
 
 ### Changed
 

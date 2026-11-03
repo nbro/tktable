@@ -16,6 +16,17 @@ The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
 The [example](https://nbro.github.io/tktable/usage.html) above shows the planets of the Solar
 System, from NASA's Planetary Fact Sheet.
 
+## Features
+
+- Spreadsheet-like tables with title rows and columns, editable cells, and keyboard navigation.
+- Cell values kept in an `ArrayVar` (a Tcl array), or computed on demand by a callback.
+- Styling with tags: colors, fonts, alignment and relief, for single cells, rows or columns.
+- Merged cells (spans), embedded widgets, and resizable rows and columns.
+- Selection of cells, rows or columns; inserting and deleting rows and columns.
+- Callbacks for browsing, editing, selection and validation of cells.
+- Works on Linux, macOS and Windows, with Python 3.11 or later and Tcl/Tk 8.6 or 9.0.
+- `python -m tktable` checks that Tktable can be found and loaded.
+
 ## Installation
 
 ```sh
