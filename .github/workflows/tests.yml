@@ -58,10 +58,14 @@ jobs:
       - run: poetry install
 
       # On Linux, Tk needs a virtual display (xvfb-run).
-      - name: Diagnose Tktable
-        # Informational on macOS/Windows, where Tktable is not installed (yet).
-        continue-on-error: ${{ runner.os != 'Linux' }}
-        run: ${{ runner.os == 'Linux' && 'xvfb-run -a' || '' }} poetry run poe check_tktable
+      - name: Diagnose Tktable (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a poetry run poe check_tktable
+
+      # Tktable is not installed on macOS and Windows runners, so this only shows the diagnosis.
+      - name: Diagnose Tktable (macOS, Windows)
+        if: runner.os != 'Linux'
+        run: poetry run poe check_tktable || echo "Tktable is not installed on this runner, as expected."
 
       - name: Run tests
         run: ${{ runner.os == 'Linux' && 'xvfb-run -a' || '' }} poetry run poe test
