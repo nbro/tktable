@@ -118,6 +118,17 @@ Upgrade the dev and docs dependencies to their latest versions:
 poetry run poe upgrade_dev_deps
 ```
 
+## Example data
+
+The example's data, `examples/data/planets.json`, comes from NASA's
+[Planetary Fact Sheet](https://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html). It is saved in
+the repository, so the example works offline. To download it again, then review the changes with
+`git diff`:
+
+```sh
+poetry run poe update_example_data
+```
+
 ## Clean
 
 Remove build and test artifacts, including the built docs:

@@ -5,6 +5,12 @@ A spreadsheet-like table widget for {py:mod}`tkinter`, wrapping the Tcl/Tk
 
 The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
 
+```{image} images/example1.png
+:alt: A window with a table of the 8 planets of the Solar System, made with pytktable
+```
+
+The [example](usage.md) above shows the planets of the Solar System.
+
 ```python
 from tktable import Table
 ```

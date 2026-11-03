@@ -119,6 +119,7 @@ check_lock = { cmd = "poetry check --lock", help = "Check that poetry.lock is co
 check_types = { cmd = "mypy", help = "Run type checks" }
 check_style = { cmd = "pylint tktable tests examples", help = "Run style checks" }
 build = { cmd = "poetry build", help = "Build the sdist and wheel into dist/" }
+update_example_data = { cmd = "python examples/data/update_planets.py", help = "Download the example's planets data from NASA again" }
 clean = { cmd = "git clean -fdX dist docs/_build .pytest_cache .mypy_cache .coverage tktable tests examples", help = "Remove build and test artifacts, including the built docs" }
 
 [tool.poe.tasks.format]

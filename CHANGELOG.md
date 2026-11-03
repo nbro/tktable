@@ -10,6 +10,18 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 - Windows installation docs: install Tktable with Magicsplat Tcl/Tk and set `TKTABLE_LIBRARY`,
   tested in CI with Python 3.11 to 3.15 (Tcl 8.6 and 9.0).
+  Covers winget (Tcl 8.6), Chocolatey (Tcl 8.6 and 9.0) and Magicsplat's installer.
+- A screenshot of the example in the README and the docs.
+
+### Changed
+
+- The example shows real data, the 8 planets from NASA's Planetary Fact Sheet, saved in
+  `examples/data/planets.json` (refresh it with `poetry run poe update_example_data`). It is an
+  editable table with a modern look: larger fonts, the
+  native ttk theme, sharp text on high-DPI Windows screens, and the window centered on screen.
+  Editing works like a spreadsheet: Left/Right move within the cell, Tab/Shift+Tab move between
+  cells, Enter moves down, and clicking puts the cursor where you click.
+- `python -m tktable` prints Tcl's `auto_path` as one plain folder per line.
 
 ## [0.1.0] - 2026-11-03
 

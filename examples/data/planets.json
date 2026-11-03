@@ -1,0 +1,89 @@
+{
+  "source": "NASA Planetary Fact Sheet (metric)",
+  "source_url": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/index.html",
+  "source_last_updated": "2025-03-18",
+  "retrieved": "2026-11-03",
+  "update_with": "poetry run poe update_example_data",
+  "planets": [
+    {
+      "name": "Mercury",
+      "diameter_km": 4879,
+      "mass_1e24_kg": 0.33,
+      "distance_from_sun_1e6_km": 57.9,
+      "day_hours": 4222.6,
+      "year_days": 88.0,
+      "moons": 0,
+      "mean_temperature_c": 167
+    },
+    {
+      "name": "Venus",
+      "diameter_km": 12104,
+      "mass_1e24_kg": 4.87,
+      "distance_from_sun_1e6_km": 108.2,
+      "day_hours": 2802.0,
+      "year_days": 224.7,
+      "moons": 0,
+      "mean_temperature_c": 464
+    },
+    {
+      "name": "Earth",
+      "diameter_km": 12756,
+      "mass_1e24_kg": 5.97,
+      "distance_from_sun_1e6_km": 149.6,
+      "day_hours": 24.0,
+      "year_days": 365.2,
+      "moons": 1,
+      "mean_temperature_c": 15
+    },
+    {
+      "name": "Mars",
+      "diameter_km": 6792,
+      "mass_1e24_kg": 0.642,
+      "distance_from_sun_1e6_km": 228.0,
+      "day_hours": 24.7,
+      "year_days": 687.0,
+      "moons": 2,
+      "mean_temperature_c": -65
+    },
+    {
+      "name": "Jupiter",
+      "diameter_km": 142984,
+      "mass_1e24_kg": 1898,
+      "distance_from_sun_1e6_km": 778.5,
+      "day_hours": 9.9,
+      "year_days": 4331,
+      "moons": 95,
+      "mean_temperature_c": -110
+    },
+    {
+      "name": "Saturn",
+      "diameter_km": 120536,
+      "mass_1e24_kg": 568,
+      "distance_from_sun_1e6_km": 1432.0,
+      "day_hours": 10.7,
+      "year_days": 10747,
+      "moons": 274,
+      "mean_temperature_c": -140
+    },
+    {
+      "name": "Uranus",
+      "diameter_km": 51118,
+      "mass_1e24_kg": 86.8,
+      "distance_from_sun_1e6_km": 2867.0,
+      "day_hours": 17.2,
+      "year_days": 30589,
+      "moons": 28,
+      "mean_temperature_c": -195
+    },
+    {
+      "name": "Neptune",
+      "diameter_km": 49528,
+      "mass_1e24_kg": 102,
+      "distance_from_sun_1e6_km": 4515.0,
+      "day_hours": 16.1,
+      "year_days": 59800,
+      "moons": 16,
+      "mean_temperature_c": -200
+    }
+  ]
+}

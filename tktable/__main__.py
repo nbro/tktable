@@ -32,7 +32,10 @@ def main() -> int:
     print(f"Tcl:       {interp.call('info', 'patchlevel')}")
     print(f"{TKTABLE_LIBRARY_ENV_VAR}: {os.environ.get(TKTABLE_LIBRARY_ENV_VAR, '(not set)')}")
     versions = find_tktable(interp)
-    print(f"auto_path: {interp.call('set', 'auto_path')}")
+    # One folder per line, as plain text (Tcl 9 returns them as "path objects").
+    print("auto_path:")
+    for folder in interp.tk.splitlist(interp.call("set", "auto_path")):
+        print(f"  {folder}")
     if not versions:
         print("Tktable:   NOT FOUND")
         print("See https://nbro.github.io/tktable/installation/")

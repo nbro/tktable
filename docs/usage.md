@@ -8,7 +8,13 @@ arguments of {py:class}`~tktable.table.Table` are the options of the Tcl widget,
 
 ## Example
 
-This is [`examples/example1.py`](https://github.com/nbro/tktable/blob/main/examples/example1.py).
+[`examples/example1.py`](https://github.com/nbro/tktable/blob/main/examples/example1.py) shows the
+8 planets of the Solar System, from NASA's Planetary Fact Sheet, in an editable table:
+
+```{image} images/example1.png
+:alt: A window with a table of the 8 planets of the Solar System, made with pytktable
+```
+
 To run it without installing Tktable, use Docker: see the instructions for
 {ref}`Linux <try-in-docker-linux>` and {ref}`Windows <try-in-docker-windows>`.
 

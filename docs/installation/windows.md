@@ -7,7 +7,7 @@ Tcl 9.0 from Python 3.14.
 
 Tktable comes with [Magicsplat Tcl/Tk for Windows](https://magicsplat.com/tcl-installer), a Tcl/Tk
 distribution by a member of the Tcl Core Team. Its Tktable works with python.org's Python, as long
-as its Tcl major version matches your Python's (CI tests this with Python 3.11 to 3.15).
+as its Tcl major version matches your Python's: Magicsplat 1.x has Tcl 8.6, and 2.x has Tcl 9.0.
 
 Check which Tcl version your Python uses:
 
@@ -15,43 +15,80 @@ Check which Tcl version your Python uses:
 python -c "import tkinter; print(tkinter.TclVersion)"
 ```
 
-Install Magicsplat with [Chocolatey](https://chocolatey.org/), choosing the release that matches:
-1.x for Tcl 8.6, 2.x for Tcl 9.0. These are the versions tested in CI. For Tcl 8.6 (Python 3.11 to
-3.13):
+Then install Magicsplat in one of the ways below, and
+{ref}`point TKTABLE_LIBRARY at its Tktable <point-tktable-library>`.
+
+### With winget (Tcl 8.6)
+
+[winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) comes with Windows 11.
+It only has Magicsplat 1.x, so it only works for Python 3.11 to 3.13 (Tcl 8.6):
+
+```powershell
+winget install Magicsplat.TclTk
+```
+
+It installs for your user, with Tktable in `%LOCALAPPDATA%\Apps\Tcl86\lib\Tktable2.12`.
+
+### With Chocolatey (Tcl 8.6 or 9.0)
+
+[Chocolatey](https://chocolatey.org/) has both Magicsplat 1.x and 2.x. If it is not installed, you
+can install it with winget, from an administrator PowerShell:
+
+```powershell
+winget install -e --id Chocolatey.Chocolatey
+```
+
+Or follow [Chocolatey's install instructions](https://chocolatey.org/install). winget and Chocolatey
+can be installed together; just don't install the same app with both.
+
+Then, from an administrator PowerShell, install the release that matches your Python. For
+Tcl 8.6, that is Python 3.11 to 3.13:
 
 ```powershell
 choco install magicsplat-tcl-tk --version 1.16.0
 ```
 
-For Tcl 9.0 (Python 3.14 and later):
+For Tcl 9.0, that is Python 3.14 and later:
 
 ```powershell
 choco install magicsplat-tcl-tk --version 2.0.6
 ```
 
-You can also download the installer from [Magicsplat's site](https://magicsplat.com/tcl-installer);
-the folder below may then differ.
+These are the versions tested in CI. They install for all users, with Tktable in
+`C:\Program Files\Tcl\lib\Tktable2.12`.
 
-Point {ref}`TKTABLE_LIBRARY <tktable-library>` at Magicsplat's Tktable, for your user, permanently:
+### With Magicsplat's installer
+
+Download the installer of the release that matches your Python from
+[Magicsplat's site](https://magicsplat.com/tcl-installer), and run it. Tktable is in the `lib`
+folder of where you install it, e.g. `lib\Tktable2.12`.
+
+(point-tktable-library)=
+### Point TKTABLE_LIBRARY at Tktable
+
+If you don't know where Tktable was installed, find it:
 
 ```powershell
-[Environment]::SetEnvironmentVariable("TKTABLE_LIBRARY", "C:\Program Files\Tcl\lib\Tktable2.12", "User")
+Get-ChildItem "C:\Program Files", "$env:LOCALAPPDATA" -Recurse -Filter pkgIndex.tcl -ErrorAction SilentlyContinue | Where-Object DirectoryName -match "Tktable" | Select-Object -ExpandProperty DirectoryName
 ```
 
-Then open a new terminal, so it sees the variable, and check the installation (below).
+Save {ref}`TKTABLE_LIBRARY <tktable-library>` for your user, so new terminals see it. For example,
+after installing with winget:
+
+```powershell
+[Environment]::SetEnvironmentVariable("TKTABLE_LIBRARY", "$env:LOCALAPPDATA\Apps\Tcl86\lib\Tktable2.12", "User")
+```
+
+This doesn't change the terminal you're in. Either open a new one, or also set it there:
+
+```powershell
+$env:TKTABLE_LIBRARY = "$env:LOCALAPPDATA\Apps\Tcl86\lib\Tktable2.12"
+```
 
 ## Check the installation
 
 ```powershell
 python -m tktable
-```
-
-## Tktable in a non-standard location
-
-Set {ref}`TKTABLE_LIBRARY <tktable-library>` in PowerShell for the current session:
-
-```powershell
-$env:TKTABLE_LIBRARY = "C:\path\to\Tktable2.12.1"
 ```
 
 (try-in-docker-windows)=
