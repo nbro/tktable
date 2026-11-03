@@ -18,7 +18,8 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - The example shows real data, the 8 planets from NASA's Planetary Fact Sheet, saved in
   `examples/data/planets.json` (refresh it with `poetry run poe update_example_data`). It is an
   editable table with a modern look: larger fonts, the
-  native ttk theme, sharp text on high-DPI Windows screens, and the window centered on screen.
+  native ttk theme, sharp text on high-DPI Windows screens, and the window centered on screen,
+  never smaller than its contents.
   Editing works like a spreadsheet: Left/Right move within the cell, Tab/Shift+Tab move between
   cells, Enter moves down, and clicking puts the cursor where you click.
 - `python -m tktable` prints Tcl's `auto_path` as one plain folder per line.

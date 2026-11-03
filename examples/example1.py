@@ -206,11 +206,15 @@ def add_link(parent: tkinter.Misc, text: str, url: str) -> ttk.Label:
     return link
 
 
-def center_on_screen(root: tkinter.Tk) -> None:
-    """Place the window in the middle of the screen, once its size is known."""
-    root.update_idletasks()
-    x = (root.winfo_screenwidth() - root.winfo_reqwidth()) // 2
-    y = (root.winfo_screenheight() - root.winfo_reqheight()) // 2
+def fit_and_center(root: tkinter.Tk) -> None:
+    """Center the window on the screen, and don't let it get smaller than its contents."""
+    root.update_idletasks()  # Lay out the window, so its size is known.
+    width, height = root.winfo_reqwidth(), root.winfo_reqheight()
+
+    root.minsize(width, height)
+
+    x = (root.winfo_screenwidth() - width) // 2
+    y = (root.winfo_screenheight() - height) // 2
     root.geometry(f"+{x}+{y}")
 
 
@@ -273,7 +277,7 @@ def main() -> None:
     style_table(table, cells, cell_font, header_font)
 
     add_spreadsheet_keys(table, cell_font)
-    center_on_screen(root)
+    fit_and_center(root)
 
     if "-test" in sys.argv:
         root.after(1000, root.destroy)
