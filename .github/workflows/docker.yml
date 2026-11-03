@@ -9,6 +9,11 @@ on:
   pull_request:
     branches: ["main"]
 
+# A new push to the same branch or pull request cancels the older run still in progress.
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   distros:
     name: Tests (${{ matrix.distro }} packages)

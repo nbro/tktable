@@ -10,6 +10,11 @@ on:
   pull_request:
     branches: ["main"]
 
+# A new push to the same branch or pull request cancels the older run still in progress.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: bash
