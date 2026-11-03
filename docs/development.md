@@ -143,7 +143,7 @@ GitHub Actions workflows in `.github/workflows/`, which use the same Poe command
 scripts in `.github/scripts/`. All run on pushes and pull requests to `main`:
 
 - `tests.yml`: quality checks (all pre-commit hooks), and tests on Linux, macOS and Windows with
-  Python 3.11 to 3.15;
+  Python 3.11 to 3.15 (on pull requests, only the oldest and newest, 3.11 and 3.15);
 - `docker.yml`: tests in Debian and Ubuntu containers, with their own Python, Tk and Tktable;
 - `windows-magicsplat.yml`: tests the documented Windows installation, python.org's Python with
   [Magicsplat](https://magicsplat.com/tcl-installer)'s Tktable;
