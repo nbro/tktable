@@ -5,13 +5,10 @@
 A module that contains a Python wrapper class for the Tcl/tk tktable widget.
 """
 
-
-import collections
 import logging
-import os
 import tkinter
 
-from tktable.utils import _setup_master
+from tktable.utils import _setup_master, load_tktable
 
 logger = logging.getLogger(__name__)
 
@@ -51,32 +48,16 @@ class Table(tkinter.Widget):
     def __init__(self, master=None, **kw):
         master = _setup_master(master)
 
-        env_var = os.environ.get("TKTABLE_LIBRARY")
-        if env_var:
-            logger.info("Add %s to auto_path", env_var)
-            master.tk.eval(f"global auto_path; lappend auto_path {{{env_var}}}")
-        else:
-            logger.info("The environment variable TKTABLE_LIBRARY is not defined.")
-
         try:
-            logger.info("Require the Tcl/Tk widget: tktable.")
-
-            # https://wiki.tcl-lang.org/page/package+require
-            master.tk.call("package", "require", "Tktable")
-
+            load_tktable(master)
             tkinter.Widget.__init__(self, master, "table", kw)
         except tkinter.TclError as exc:
             raise CannotUseError(
-                f"You cannot instantiate {self.__class__.__name__} "
-                f"unless you have installed in your system the following tools:\n"
-                "1. Tcl (a programming language: https://www.tcl-lang.org/)\n"
-                "2. Tk (a Tcl package to create and manipulate GUI widgets)\n"
-                "3. Tkinter (a Python interface to Tk: "
-                "https://docs.python.org/3/library/tkinter.html), "
-                "which is installed.\n"
-                "4. The original Tk widget: tktable,\n"
-                "which you may be able to install using the instructions here:\n"
-                "https://github.com/nbro/tktable/issues/1#issuecomment-244519589."
+                f"You cannot instantiate {self.__class__.__name__} because the Tcl/Tk "
+                "extension Tktable could not be loaded by your Tcl/Tk installation.\n"
+                "Run `python -m tktable` to diagnose the problem, and see "
+                "https://nbro.github.io/tktable/installation/ for how to install Tktable "
+                "or point the TKTABLE_LIBRARY environment variable to it."
             ) from exc
 
     def _options(self, cnf, kw=None):
@@ -86,7 +67,7 @@ class Table(tkinter.Widget):
             cnf = tkinter._cnfmerge(cnf)
         res = ()
         for k, v in cnf.items():
-            if isinstance(v, collections.Callable):
+            if callable(v):
                 if k in self._tabsubst_commands:
                     v = f"{self._register(v, self._tabsubst)} {' '.join(self._tabsubst_format)}"
                 else:
@@ -195,7 +176,7 @@ class Table(tkinter.Widget):
         if row is None and not kwargs:
             pairs = self.tk.splitlist(self.tk.call(self._w, "height"))
             return dict(pair.split() for pair in pairs)
-        if row:
+        if row is not None:
             return int(self.tk.call(self._w, "height", str(row)))
         args = tkinter._flatten(list(kwargs.items()))
         self.tk.call(self._w, "height", *args)
@@ -341,9 +322,7 @@ class Table(tkinter.Widget):
         kwargs is given then it corresponds to option-value pairs that should
         be modified."""
         if option is None and not kwargs:
-            split1 = self.tk.splitlist(
-                self.tk.call(self._w, "tag", "configure", tagname)
-            )
+            split1 = self.tk.splitlist(self.tk.call(self._w, "tag", "configure", tagname))
             result = {}
             for item in split1:
                 res = self.tk.splitlist(item)
@@ -365,8 +344,8 @@ class Table(tkinter.Widget):
     def tag_includes(self, tagname, index):
         return self.getboolean(self.tk.call(self._w, "tag", "includes", tagname, index))
 
-    def tag_lower(self, tagname, belowthis=None):  # pylint: disable=unused-argument
-        self.tk.call(self._w, "tag", "lower", belowthis)
+    def tag_lower(self, tagname, belowthis=None):
+        self.tk.call(self._w, "tag", "lower", tagname, belowthis)
 
     def tag_names(self, pattern=None):
         return self.tk.call(self._w, "tag", "names", pattern)

@@ -1,39 +1,172 @@
-[tool.poetry]
-name = "tktable"
-version = "0.1.0"
-description = "Wrapper library for Python of the homonymous Tk library."
-authors = ["Guilherme Polo <ggpolo@gmail.com>"]
-maintainers = ["nbro <tktable@outlook.com>"]
-repository = "https://github.com/nbro/tktable"
-license = "BSD-2-Clause"
-readme = "README.md"
+# ---------------------------------------------------------------------------------------------
+# Project metadata (PEP 621)
+# ---------------------------------------------------------------------------------------------
 
-classifiers=[
+[project]
+name = "pytktable"
+version = "0.1.0"
+description = "A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk Tktable extension."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "BSD-2-Clause"
+license-files = ["LICENSE.md"]
+authors = [
+    { name = "Guilherme Polo", email = "ggpolo@gmail.com" },
+    { name = "nbro", email = "nbrosoftware@outlook.com" },
+]
+maintainers = [
+    { name = "nbro", email = "nbrosoftware@outlook.com" },
+]
+keywords = ["tkinter", "tk", "tcl", "table", "tktable", "widget", "gui"]
+classifiers = [
     "Development Status :: 4 - Beta",
-    "Environment :: Console",
+    "Environment :: X11 Applications",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: User Interfaces",
     "Topic :: Software Development :: Libraries :: Tcl Extensions",
     "Operating System :: MacOS",
     "Operating System :: Microsoft :: Windows",
-    "Operating System :: POSIX :: Linux"
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
 ]
+dependencies = []
 
-[tool.poetry.dependencies]
-python = ">=3.8"
+[project.urls]
+documentation = "https://nbro.github.io/tktable/"
+repository = "https://github.com/nbro/tktable"
+changelog = "https://github.com/nbro/tktable/blob/main/CHANGELOG.md"
+issues = "https://github.com/nbro/tktable/issues"
+
+# ---------------------------------------------------------------------------------------------
+# Poetry: packaging and dependencies
+# ---------------------------------------------------------------------------------------------
+
+[tool.poetry]
+packages = [{ include = "tktable" }]
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.7.0"
-isort = "^5.12.0"
-pylint = "^2.17.5"
-mypy = "^1.5.1"
-pytest = "^7.4.0"
-coverage = "^7.3.0"
+black = "^26.10.1"
+isort = "^9.0.2"
+pylint = "^4.1.3"
+mypy = "^2.4.1"
+pytest = "^9.2.0"
+coverage = "^7.17.1"
+pre-commit = "^4.7.0"
+poethepoet = "^0.49.0"
 
-[tool.pylint."MESSAGES CONTROL"]
+[tool.poetry.group.docs.dependencies]
+# Only for Python >= 3.13, which Sphinx 9.2 requires; CI builds the docs with 3.13.
+sphinx = {version = "^9.2.0", python = ">=3.13"}
+myst-parser = {version = "^5.1.0", python = ">=3.13"}
+furo = {version = "^2025.12.19", python = ">=3.13"}
+sphinx-copybutton = {version = "^0.5.2", python = ">=3.13"}
+
+# ---------------------------------------------------------------------------------------------
+# Tools: formatting, linting, type checking, testing, security
+# ---------------------------------------------------------------------------------------------
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.11"
+files = ["tktable"]
+warn_unused_ignores = true
+warn_redundant_casts = true
+
+[tool.pylint.main]
+py-version = "3.11"
+
+[tool.pylint.format]
+max-line-length = 100
+
+[tool.pylint."messages control"]
 disable = ["fixme", "invalid-name"]
 enable = ["useless-suppression"]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["tktable: needs the Tktable Tcl/Tk extension"]
+
+[tool.coverage]
+run.source = ["tktable"]
+report.show_missing = true
+report.skip_covered = true
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
+# ---------------------------------------------------------------------------------------------
+# Poe the Poet: development commands. Run `poetry run poe` to list them.
+# ---------------------------------------------------------------------------------------------
+
+[tool.poe.tasks]
+check_tktable = { cmd = "python -m tktable", help = "Diagnose whether Tktable can be found and loaded" }
+check_lock = { cmd = "poetry check --lock", help = "Check that poetry.lock is consistent with pyproject.toml" }
+check_types = { cmd = "mypy", help = "Run type checks" }
+check_style = { cmd = "pylint tktable tests examples", help = "Run style checks" }
+build = { cmd = "poetry build", help = "Build the sdist and wheel into dist/" }
+clean = { cmd = "git clean -fdX dist docs/_build .pytest_cache .mypy_cache .coverage tktable tests examples", help = "Remove build and test artifacts, including the built docs" }
+
+[tool.poe.tasks.format]
+help = "Format Python (isort, black)"
+sequence = [{ cmd = "isort tktable tests examples" }, { cmd = "black tktable tests examples" }]
+
+[tool.poe.tasks.check_format]
+help = "Check that the code is formatted"
+sequence = [{ cmd = "isort --check --diff tktable tests examples" }, { cmd = "black --check --diff tktable tests examples" }]
+
+[tool.poe.tasks.check]
+help = "Run the quality checks: lock file, formatting, types, style"
+sequence = ["check_lock", "check_format", "check_types", "check_style"]
+
+[tool.poe.tasks.test]
+help = "Run the tests (on Linux without a display: xvfb-run -a poetry run poe test)"
+sequence = [{ cmd = "coverage run -m pytest -v -rs" }, { cmd = "coverage report" }]
+
+[tool.poe.tasks.docs]
+help = "Build the docs into docs/_build/html (warnings are errors) and print the link to open them"
+sequence = [
+    { cmd = "sphinx-build -W --keep-going -b html docs docs/_build/html" },
+    { cmd = '''python -c "import pathlib; print('Docs:', pathlib.Path('docs/_build/html/index.html').resolve().as_uri())"''' },
+]
+
+[tool.poe.tasks.upgrade_dev_deps]
+help = "Upgrade the dev and docs dependencies to their latest versions"
+sequence = [
+    { cmd = "poetry add --group dev black@latest isort@latest pylint@latest mypy@latest pytest@latest coverage@latest pre-commit@latest poethepoet@latest" },
+    { cmd = "poetry add --group docs --python >=3.13 sphinx@latest myst-parser@latest furo@latest sphinx-copybutton@latest" },
+]
+
+[tool.poe.tasks.docker_test]
+help = "Run the tests in Debian and Ubuntu containers"
+sequence = ["docker_debian", "docker_ubuntu"]
+
+[tool.poe.tasks.docker_debian]
+help = "Run the tests in a Debian container"
+sequence = [{ cmd = "docker build -f docker/Dockerfile.debian -t tktable-test:debian ." }, { cmd = "docker run --rm tktable-test:debian" }]
+
+[tool.poe.tasks.docker_ubuntu]
+help = "Run the tests in an Ubuntu container"
+sequence = [{ cmd = "docker build -f docker/Dockerfile.ubuntu -t tktable-test:ubuntu ." }, { cmd = "docker run --rm tktable-test:ubuntu" }]
+
+# ---------------------------------------------------------------------------------------------
+# Build system
+# ---------------------------------------------------------------------------------------------
+
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

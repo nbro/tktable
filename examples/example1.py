@@ -1,9 +1,21 @@
-# pylint: disable=missing-module-docstring, missing-function-docstring
+# pylint: disable=missing-function-docstring
+"""A table with titles, an ArrayVar, tags, a selection and callbacks.
+
+Needs Tktable installed (check with ``python -m tktable``). Run it from the repository's root:
+
+    poetry run python examples/example1.py
+
+Selecting a cell logs the event and the selection. Pass ``-test`` to close the window after a
+second.
+"""
+
 import logging
 import sys
 from tkinter import Button, Label, Tk
 
 from tktable import ArrayVar, Table
+
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -13,11 +25,11 @@ def main():
         return "set"
 
     def browsecmd(event):
-        print("event:", event.__dict__)
-        print("curselection:", test.curselection())
-        print("active cell index:", test.index("active"))
-        print("active:", test.index("active", "row"))
-        print("anchor:", test.index("anchor", "row"))
+        logger.info("event: %s", event.__dict__)
+        logger.info("curselection: %s", test.curselection())
+        logger.info("active cell index: %s", test.index("active"))
+        logger.info("active row: %s", test.index("active", "row"))
+        logger.info("anchor row: %s", test.index("anchor", "row"))
 
     root = Tk()
 

@@ -1,0 +1,41 @@
+name: Windows + Magicsplat (experimental)
+
+# Experimental: can Magicsplat's Tktable be loaded by python.org's Python on Windows?
+# Informational only: its result doesn't block pull requests or releases.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  tests:
+    name: Tests (Python ${{ matrix.python-version }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14", "3.15"]
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Install Magicsplat Tcl/Tk and point TKTABLE_LIBRARY at its Tktable
+        run: .github/scripts/install-magicsplat.ps1
+
+      - run: poetry install
+
+      - run: poetry run poe check_tktable
+
+      - run: poetry run poe test

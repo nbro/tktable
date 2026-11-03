@@ -1,0 +1,60 @@
+# Install the hooks once with `poetry run pre-commit install`; then they run on every `git commit`.
+# To run them on all files, as CI does: `poetry run pre-commit run --all-files`.
+repos:
+  # The project's own checks, defined as Poe tasks in pyproject.toml.
+  - repo: local
+    hooks:
+      - id: check-lock
+        name: poetry.lock is consistent with pyproject.toml
+        entry: poetry run poe check_lock
+        language: system
+        files: ^(pyproject\.toml|poetry\.lock)$
+        pass_filenames: false
+
+      - id: check-format
+        name: Python formatting (isort, black)
+        entry: poetry run poe check_format
+        language: system
+        types: [python]
+        pass_filenames: false
+
+      - id: check-types
+        name: Type checks (mypy)
+        entry: poetry run poe check_types
+        language: system
+        types: [python]
+        pass_filenames: false
+
+      - id: check-style
+        name: Style checks (pylint)
+        entry: poetry run poe check_style
+        language: system
+        types: [python]
+        pass_filenames: false
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+        args: ["--strict"]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.9.4
+    hooks:
+      - id: bandit
+        args: ["-c", "pyproject.toml", "-r", "tktable/"]
+        additional_dependencies: ["bandit[toml]"]

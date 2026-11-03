@@ -1,0 +1,28 @@
+name: Docker tests
+
+# Tests with the Python, Tcl, Tk and Tktable packages of Linux distributions, in containers.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  distros:
+    name: Tests (${{ matrix.distro }} packages)
+    strategy:
+      fail-fast: false
+      matrix:
+        distro: [debian, ubuntu]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - run: poetry install
+
+      - run: poetry run poe docker_${{ matrix.distro }}

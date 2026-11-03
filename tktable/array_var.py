@@ -42,11 +42,12 @@ class ArrayVar(tkinter.Variable):
         self.set(**{str(key): value})
 
     def names(self):
-        return self._tk.call("array", "names", self._name)
+        return self._tk.splitlist(self._tk.call("array", "names", self._name))
 
     def get(self, key=None):
         if key is None:
-            flatten_pairs = self._tk.call("array", "get", str(self))
+            # splitlist: tkinter may return the Tcl list as a Tcl_Obj, which can't be sliced.
+            flatten_pairs = self._tk.splitlist(self._tk.call("array", "get", str(self)))
             return dict(list(zip(flatten_pairs[::2], flatten_pairs[1::2])))
         return self._tk.globalgetvar(str(self), str(key))
 
@@ -57,4 +58,7 @@ class ArrayVar(tkinter.Variable):
     def unset(self, pattern=None):
         """Unsets all of the elements in the array. If pattern is given, only
         the elements that match pattern are unset."""
-        self._tk.call("array", "unset", str(self), pattern)
+        if pattern is None:
+            self._tk.call("array", "unset", str(self))
+        else:
+            self._tk.call("array", "unset", str(self), pattern)

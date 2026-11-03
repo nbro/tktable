@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [tests]
+    outputs:
+      pre_release: ${{ steps.version.outputs.pre_release }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pipx install poetry
+
+      - name: Check package version and tag are equal
+        id: version
+        run: |
+          version="$(poetry version --short)"
+          if [[ "${{ github.ref_name }}" != "$version" ]]; then
+            echo "Tag = ${{ github.ref_name }} != $version"
+            exit 1
+          fi
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || echo "pre_release=true" >> "$GITHUB_OUTPUT"
+
+      - run: poetry build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+    needs: [build]
+    environment: pypi
+    permissions:
+      id-token: write  # PyPI Trusted Publishing: no API token stored in GitHub.
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  github-release:
+    name: GitHub release
+    runs-on: ubuntu-latest
+    needs: [build, publish]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          allowUpdates: true
+          replacesArtifacts: true
+          updateOnlyUnreleased: true
+          generateReleaseNotes: true
+          prerelease: ${{ needs.build.outputs.pre_release == 'true' }}
