@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   tests:
-    name: Tests (Python ${{ matrix.python-version }})
+    name: Windows + Magicsplat (Python ${{ matrix.python-version }})
     strategy:
       fail-fast: false
       matrix:
