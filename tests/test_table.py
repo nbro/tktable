@@ -5,7 +5,7 @@ import tkinter
 
 import pytest
 
-from tests.conftest import tktable_available
+import tktable.table as table_module
 from tktable import ArrayVar, Table
 from tktable.table import CannotUseError
 
@@ -21,10 +21,14 @@ def table(table_root: tkinter.Tk) -> Table:
     return t
 
 
-def test_cannot_use_error_without_tktable(root, monkeypatch):
-    if tktable_available(root):
-        pytest.skip("Tktable is installed")
-    monkeypatch.delenv("TKTABLE_LIBRARY", raising=False)
+def test_cannot_use_error_when_tktable_cannot_be_loaded(root, monkeypatch):
+    """Simulates a missing Tktable, so the test gives the same result whether it is installed."""
+
+    def fail_to_load(_master):
+        raise tkinter.TclError("can't find package Tktable")
+
+    monkeypatch.setattr(table_module, "load_tktable", fail_to_load)
+
     with pytest.raises(CannotUseError, match="python -m tktable"):
         Table(root)
 

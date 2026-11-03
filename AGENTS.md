@@ -23,6 +23,13 @@ easiest to understand.
 - Run `poetry run pre-commit run --all-files` before pushing; the hooks also run on every commit
   once installed with `poetry run pre-commit install`.
 
+## Commits
+
+- Start the subject with an imperative verb, as if completing "This commit will ...": "Fix ...",
+  "Add ...", "Make ...", not "Fixed ..." or "Fixes ...".
+- Keep the subject at most 72 characters, without a final period. Explain *why* in the body if it
+  isn't obvious.
+
 ## Code
 
 - Python >= 3.11, with type hints on new code.

@@ -44,12 +44,20 @@ function Find-TktableLibrary {
     $roots = @($env:ProgramFiles, ${env:ProgramFiles(x86)}, "C:\Tcl", $env:LOCALAPPDATA) |
         Where-Object { $_ -and (Test-Path $_) }
 
-    $index = Get-ChildItem $roots -Recurse -Filter pkgIndex.tcl -ErrorAction SilentlyContinue |
+    $found = Get-ChildItem $roots -Recurse -Filter pkgIndex.tcl -ErrorAction SilentlyContinue |
         Where-Object { $_.DirectoryName -match "Tktable" } |
-        Select-Object -First 1
-    if (-not $index) { throw "Tktable's pkgIndex.tcl not found after installing Magicsplat" }
+        ForEach-Object { $_.DirectoryName }
+    "All Tktable copies found:" | Write-Host
+    $found | ForEach-Object { "  $_" } | Write-Host
 
-    return $index.DirectoryName
+    # The runner also has R, which bundles its own Tcl 8 build of Tktable: skip it.
+    $magicsplat = $found |
+        Where-Object { $_ -notmatch "\\R\\R-" } |
+        Sort-Object -Descending |
+        Select-Object -First 1
+    if (-not $magicsplat) { throw "Magicsplat's Tktable not found after installing Magicsplat" }
+
+    return $magicsplat
 }
 
 

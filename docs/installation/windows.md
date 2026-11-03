@@ -1,13 +1,16 @@
 # Installation on Windows
 
-The python.org installers for Windows include tkinter, Tcl and Tk.
+The python.org installers for Windows include tkinter, Tcl and Tk: Tcl 8.6 up to Python 3.13, and
+Tcl 9.0 from Python 3.14.
 
 ## Install Tktable
 
-Not supported yet: there is no tested way to install Tktable for python.org's Python
-([#1](https://github.com/nbro/tktable/issues/1)). An experimental CI job is testing whether
-[Magicsplat Tcl/Tk](https://magicsplat.com/tcl-installer)'s Tktable works; this page will be
-updated with the results.
+There is no official way to install Tktable for python.org's Python yet
+([#1](https://github.com/nbro/tktable/issues/1)). CI shows that a Tktable built for the same Tcl
+major version (8.6 or 9.0) as your Python can be used, by pointing
+{ref}`TKTABLE_LIBRARY <tktable-library>` at it (see below). An experimental CI job is testing
+[Magicsplat Tcl/Tk](https://magicsplat.com/tcl-installer)'s Tktable as such a source; this page will
+be updated with the results.
 
 ## Check the installation
 
