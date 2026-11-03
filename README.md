@@ -9,8 +9,9 @@
 A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk
 [Tktable](https://wiki.tcl-lang.org/page/Tktable) extension.
 
-> **Important:** `pip install pytktable` does not install the Tktable extension itself, which this
-> package needs. Install it first, following the
+> **Important:** pytktable is only the Python wrapper. The table widget itself is
+> [Tktable](https://wiki.tcl-lang.org/page/Tktable), an extension for Tcl/Tk written in C, which
+> `pip install pytktable` does not install. Install Tktable first, following the
 > [installation instructions](https://nbro.github.io/tktable/installation/) for your OS, then run
 > `python -m tktable` to check that it works.
 

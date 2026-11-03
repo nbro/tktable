@@ -105,6 +105,8 @@ def style_table(
     )
 
 
+
+
 def add_spreadsheet_keys(table: Table, cell_font: font.Font) -> None:
     """Make editing feel like a spreadsheet.
 
@@ -186,6 +188,7 @@ def add_link(parent: tkinter.Misc, text: str, url: str) -> ttk.Label:
     link.font = link_font  # Keep a reference: Tk deletes unreferenced fonts.
     link.bind("<Button-1>", lambda _event: webbrowser.open(url))
     return link
+
 
 
 def main() -> None:
