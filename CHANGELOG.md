@@ -12,14 +12,19 @@ and the project uses [Semantic Versioning](https://semver.org/).
   tested in CI with Python 3.11 to 3.15 (Tcl 8.6 and 9.0).
   Covers winget (Tcl 8.6), Chocolatey (Tcl 8.6 and 9.0) and Magicsplat's installer.
 - A screenshot of the example, and a list of features, in the README and the docs.
+- A warning at the top of the README and the docs that Tktable must be installed separately.
+- One small example per feature (e.g. `examples/tags.py`), each describing itself in its window,
+  listed in the docs, and a test that runs every example in CI.
 
 ### Changed
 
+- The examples are run as modules from the repository's root, e.g.
+  `poetry run python -m examples.planets`, and share their window setup (`examples/window.py`).
 - The example shows real data, the 8 planets from NASA's Planetary Fact Sheet, saved in
   `examples/data/planets.json` (refresh it with `poetry run poe update_example_data`). It is an
-  editable table with a modern look: larger fonts, the
-  native ttk theme, sharp text on high-DPI Windows screens, and the window centered on screen,
-  never smaller than its contents.
+  editable table with a modern look: larger fonts, the native ttk theme, sharp text on high-DPI
+  Windows screens, and the window centered on screen, never smaller than its contents, with the
+  table growing with the window.
   Editing works like a spreadsheet: Left/Right move within the cell, Tab/Shift+Tab move between
   cells, Enter moves down, and clicking puts the cursor where you click.
 - `python -m tktable` prints Tcl's `auto_path` as one plain folder per line.

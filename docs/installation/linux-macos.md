@@ -58,7 +58,7 @@ xhost +local:
 Run the example:
 
 ```sh
-docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python examples/example1.py
+docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python -m examples.planets
 ```
 
 On macOS this needs an X server such as [XQuartz](https://www.xquartz.org/), and is untested.

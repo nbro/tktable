@@ -108,11 +108,11 @@ docker build -f docker/Dockerfile.ubuntu -t tktable-test:ubuntu .
 Run the example:
 
 ```powershell
-docker run --rm -e DISPLAY=:0 -v /run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python examples/example1.py
+docker run --rm -e DISPLAY=:0 -v /run/desktop/mnt/host/wslg/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python -m examples.planets
 ```
 
 If no window opens, run the same image from a WSL shell instead, where WSLg sets `DISPLAY`:
 
 ```bash
-docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python examples/example1.py
+docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python -m examples.planets
 ```

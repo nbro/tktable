@@ -6,7 +6,7 @@ examples/data/planets.json, so the example works offline; to refresh it, run
 
 Needs Tktable installed (check with ``python -m tktable``). Run it from the repository's root:
 
-    poetry run python examples/example1.py
+    poetry run python -m examples.planets
 
 To run it in Docker instead, without installing Tktable, see
 https://nbro.github.io/tktable/usage.html
@@ -17,17 +17,23 @@ second.
 
 import json
 import logging
-import sys
 import tkinter
 import webbrowser
 from pathlib import Path
 from tkinter import font, ttk
 
+from examples.window import create_window, run
 from tktable import ArrayVar, Table
 
 logger = logging.getLogger(__name__)
 
 DATA_FILE = Path(__file__).with_name("data") / "planets.json"
+
+DESCRIPTION = (
+    "Real data from NASA in an editable table, with a styled header, stripes and right-aligned "
+    "numbers. Click a cell to edit it; Left/Right move within it, Tab and Enter move between "
+    "cells. Selecting a row logs it. Drag the window's corner: the table grows with it."
+)
 
 # The table's columns: title, key in planets.json, and how to format the values.
 # Distance is from the Sun, Day and Year are the length of a day and an orbit, Temp. is the mean.
@@ -97,30 +103,6 @@ def style_table(
     table.tag_configure(
         "active", background=ACTIVE_BG, foreground=TEXT_FG, font=cell_font, anchor="w"
     )
-
-
-def enable_sharp_text_on_windows() -> None:
-    """Tell Windows this app handles high-DPI screens, so text is crisp instead of blurry.
-
-    Must run before the window is created. Does nothing on other systems.
-    """
-    if sys.platform != "win32":
-        return
-    try:
-        import ctypes  # pylint: disable=import-outside-toplevel
-
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
-    except (AttributeError, OSError):
-        logger.debug("Could not enable high-DPI awareness")
-
-
-def use_modern_theme(root: tkinter.Tk) -> None:
-    """Use the native ttk theme on Windows (vista) and macOS (aqua), else the modern "clam"."""
-    style = ttk.Style(root)
-    for theme in ("vista", "aqua", "clam"):
-        if theme in style.theme_names():
-            style.theme_use(theme)
-            return
 
 
 def add_spreadsheet_keys(table: Table, cell_font: font.Font) -> None:
@@ -206,28 +188,9 @@ def add_link(parent: tkinter.Misc, text: str, url: str) -> ttk.Label:
     return link
 
 
-def fit_and_center(root: tkinter.Tk) -> None:
-    """Center the window on the screen, and don't let it get smaller than its contents."""
-    root.update_idletasks()  # Lay out the window, so its size is known.
-    width, height = root.winfo_reqwidth(), root.winfo_reqheight()
-
-    root.minsize(width, height)
-
-    x = (root.winfo_screenwidth() - width) // 2
-    y = (root.winfo_screenheight() - height) // 2
-    root.geometry(f"+{x}+{y}")
-
-
 def main() -> None:
     """Create the window with the table, the data's source, and a Close button."""
-    enable_sharp_text_on_windows()
-    root = tkinter.Tk()
-    root.title("The planets of the Solar System - pytktable example")
-    use_modern_theme(root)
-
-    # A themed frame gives the window the theme's background and padding.
-    frame = ttk.Frame(root, padding=16)
-    frame.pack(expand=True, fill="both")
+    root, frame = create_window("The planets of the Solar System", DESCRIPTION)
 
     # Larger versions of the default font. Keep references: Tk deletes unreferenced fonts.
     cell_font = font.nametofont("TkDefaultFont").copy()
@@ -261,7 +224,7 @@ def main() -> None:
         height=len(planets) + 1,
         selectmode="browse",
         selecttype="row",
-        rowstretch="unset",
+        rowstretch="all",
         colstretch="all",
         anchor="w",
         font=cell_font,
@@ -277,12 +240,8 @@ def main() -> None:
     style_table(table, cells, cell_font, header_font)
 
     add_spreadsheet_keys(table, cell_font)
-    fit_and_center(root)
 
-    if "-test" in sys.argv:
-        root.after(1000, root.destroy)
-
-    root.mainloop()
+    run(root)
 
 
 if __name__ == "__main__":

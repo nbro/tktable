@@ -9,9 +9,14 @@
 A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk
 [Tktable](https://wiki.tcl-lang.org/page/Tktable) extension.
 
+> **Important:** `pip install pytktable` does not install the Tktable extension itself, which this
+> package needs. Install it first, following the
+> [installation instructions](https://nbro.github.io/tktable/installation/) for your OS, then run
+> `python -m tktable` to check that it works.
+
 The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
 
-![A window with a table of the 8 planets of the Solar System, made with pytktable](https://raw.githubusercontent.com/nbro/tktable/main/docs/images/example1.png)
+![A window with a table of the 8 planets of the Solar System, made with pytktable](https://raw.githubusercontent.com/nbro/tktable/main/docs/images/planets.png)
 
 The [example](https://nbro.github.io/tktable/usage.html) above shows the planets of the Solar
 System, from NASA's Planetary Fact Sheet (screenshot taken on Windows 11).
@@ -23,8 +28,10 @@ System, from NASA's Planetary Fact Sheet (screenshot taken on Windows 11).
 - Styling with tags: colors, fonts, alignment and relief, for single cells, rows or columns.
 - Merged cells (spans), embedded widgets, and resizable rows and columns.
 - Selection of cells, rows or columns; inserting and deleting rows and columns.
-- Callbacks for browsing, editing, selection and validation of cells.
-- Works on Linux, macOS and Windows, with Python 3.11 or later and Tcl/Tk 8.6 or 9.0.
+- Callbacks when the active cell changes, to compute cell values, to validate edits, and to
+  format the selection when it is copied.
+- Works on Linux, macOS and Windows, with Python 3.11 or later and Tcl/Tk 8.6 or 9.0, once
+  Tcl/Tk (usually bundled with Python) and the Tktable extension are [installed](https://nbro.github.io/tktable/installation/).
 - `python -m tktable` checks that Tktable can be found and loaded.
 
 ## Installation

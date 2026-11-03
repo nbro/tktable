@@ -11,7 +11,7 @@ try:
 
     from tktable.utils import load_tktable
 except ImportError:  # Only test_main.py can run without tkinter.
-    collect_ignore = ["test_array_var.py", "test_table.py", "test_utils.py"]
+    collect_ignore = ["test_array_var.py", "test_examples.py", "test_table.py", "test_utils.py"]
 
 #: Set to 1 (e.g. in CI) to fail, instead of skip, the tests that need Tktable.
 TKTABLE_REQUIRED = os.environ.get("TKTABLE_REQUIRED") == "1"

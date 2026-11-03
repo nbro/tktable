@@ -8,6 +8,10 @@ pip install pytktable
 
 It requires Python >= 3.11.
 
+```{important}
+`pip install pytktable` is not enough: you also need to install the Tktable extension, as below.
+```
+
 This package is pure Python, but it also needs these, which `pip` does not install:
 
 1. [Tcl](https://www.tcl-lang.org/) and [Tk](https://wiki.tcl-lang.org/page/Tk);
