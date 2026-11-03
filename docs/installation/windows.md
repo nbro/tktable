@@ -5,12 +5,40 @@ Tcl 9.0 from Python 3.14.
 
 ## Install Tktable
 
-There is no official way to install Tktable for python.org's Python yet
-([#1](https://github.com/nbro/tktable/issues/1)). CI shows that a Tktable built for the same Tcl
-major version (8.6 or 9.0) as your Python can be used, by pointing
-{ref}`TKTABLE_LIBRARY <tktable-library>` at it (see below). An experimental CI job is testing
-[Magicsplat Tcl/Tk](https://magicsplat.com/tcl-installer)'s Tktable as such a source; this page will
-be updated with the results.
+Tktable comes with [Magicsplat Tcl/Tk for Windows](https://magicsplat.com/tcl-installer), a Tcl/Tk
+distribution by a member of the Tcl Core Team. Its Tktable works with python.org's Python, as long
+as its Tcl major version matches your Python's (CI tests this with Python 3.11 to 3.15).
+
+Check which Tcl version your Python uses:
+
+```powershell
+python -c "import tkinter; print(tkinter.TclVersion)"
+```
+
+Install Magicsplat with [Chocolatey](https://chocolatey.org/), choosing the release that matches:
+1.x for Tcl 8.6, 2.x for Tcl 9.0. These are the versions tested in CI. For Tcl 8.6 (Python 3.11 to
+3.13):
+
+```powershell
+choco install magicsplat-tcl-tk --version 1.16.0
+```
+
+For Tcl 9.0 (Python 3.14 and later):
+
+```powershell
+choco install magicsplat-tcl-tk --version 2.0.6
+```
+
+You can also download the installer from [Magicsplat's site](https://magicsplat.com/tcl-installer);
+the folder below may then differ.
+
+Point {ref}`TKTABLE_LIBRARY <tktable-library>` at Magicsplat's Tktable, for your user, permanently:
+
+```powershell
+[Environment]::SetEnvironmentVariable("TKTABLE_LIBRARY", "C:\Program Files\Tcl\lib\Tktable2.12", "User")
+```
+
+Then open a new terminal, so it sees the variable, and check the installation (below).
 
 ## Check the installation
 

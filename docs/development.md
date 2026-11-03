@@ -134,8 +134,7 @@ scripts in `.github/scripts/`. All run on pushes and pull requests to `main`:
 - `tests.yml`: quality checks (all pre-commit hooks), and tests on Linux, macOS and Windows with
   Python 3.11 to 3.15;
 - `docker.yml`: tests in Debian and Ubuntu containers, with their own Python, Tk and Tktable;
-- `windows-magicsplat.yml`: experimental, informational tests of whether
-  [Magicsplat](https://magicsplat.com/tcl-installer)'s Tktable works with python.org's Python on
-  Windows;
+- `windows-magicsplat.yml`: tests the documented Windows installation, python.org's Python with
+  [Magicsplat](https://magicsplat.com/tcl-installer)'s Tktable;
 - `docs.yml`: builds the docs, and publishes them to GitHub Pages on pushes to `main`;
 - `release.yml`: see [Releasing](releasing.md).

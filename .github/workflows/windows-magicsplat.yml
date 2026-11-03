@@ -1,7 +1,6 @@
-name: Windows + Magicsplat (experimental)
+name: Windows + Magicsplat
 
-# Experimental: can Magicsplat's Tktable be loaded by python.org's Python on Windows?
-# Informational only: its result doesn't block pull requests or releases.
+# Tests the documented Windows installation: python.org's Python with Magicsplat's Tktable.
 
 on:
   workflow_dispatch:

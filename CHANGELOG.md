@@ -6,6 +6,11 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Windows installation docs: install Tktable with Magicsplat Tcl/Tk and set `TKTABLE_LIBRARY`,
+  tested in CI with Python 3.11 to 3.15 (Tcl 8.6 and 9.0).
+
 ## [0.1.0] - 2026-11-03
 
 First release on PyPI. These changes were made with the help of
