@@ -8,7 +8,9 @@ pip install pytktable
 
 It requires Python >= 3.11.
 
-```{important}
+```{admonition} Install Tktable separately
+:class: danger
+
 `pip install pytktable` is not enough: it installs only the Python wrapper, not Tktable, the
 Tcl/Tk extension that provides the widget. Install Tktable as below.
 ```
