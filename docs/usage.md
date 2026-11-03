@@ -15,6 +15,8 @@ arguments of {py:class}`~tktable.table.Table` are the options of the Tcl widget,
 :alt: A window with a table of the 8 planets of the Solar System, made with pytktable
 ```
 
+The screenshot was taken on Windows 11; the window looks native on each OS.
+
 To run it without installing Tktable, use Docker: see the instructions for
 {ref}`Linux <try-in-docker-linux>` and {ref}`Windows <try-in-docker-windows>`.
 

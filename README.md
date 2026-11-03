@@ -14,7 +14,7 @@ The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
 ![A window with a table of the 8 planets of the Solar System, made with pytktable](https://raw.githubusercontent.com/nbro/tktable/main/docs/images/example1.png)
 
 The [example](https://nbro.github.io/tktable/usage.html) above shows the planets of the Solar
-System, from NASA's Planetary Fact Sheet.
+System, from NASA's Planetary Fact Sheet (screenshot taken on Windows 11).
 
 ## Features
 
