@@ -38,7 +38,9 @@ First release on PyPI. These changes were made with the help of
   - tests in Debian and Ubuntu containers using their Tktable packages;
   - an experimental job testing Magicsplat's Tktable with python.org's Python on Windows;
   - release to PyPI (Trusted Publishing) and GitHub when a version tag is pushed.
-- Dockerfiles (`docker/`) to run the tests with each Linux distro's own packages.
+- Dockerfiles (`docker/`) to run the tests with each Linux distro's own packages, and docs on
+  running the example in the Ubuntu container on Windows (WSLg) and Linux, without installing
+  Tktable.
 - pre-commit hooks that run all quality checks on every commit (install them with
   `poetry run pre-commit install`): the Poe check tasks (lock file, isort, black, mypy, pylint),
   YAML linting (yamllint), secret scanning (gitleaks) and security checks (bandit).

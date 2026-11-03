@@ -5,6 +5,9 @@ Needs Tktable installed (check with ``python -m tktable``). Run it from the repo
 
     poetry run python examples/example1.py
 
+To run it in Docker instead, without installing Tktable, see
+https://nbro.github.io/tktable/usage.html
+
 Selecting a cell logs the event and the selection. Pass ``-test`` to close the window after a
 second.
 """

@@ -35,3 +35,30 @@ Or for the whole shell session:
 ```sh
 export TKTABLE_LIBRARY=/usr/lib/Tktable2.10
 ```
+
+(try-in-docker-linux)=
+## Try the example without installing Tktable
+
+On Linux with [Docker](https://docs.docker.com/engine/install/), you can run
+[the example](../usage.md) in an Ubuntu container, which has Python, Tk and Tktable. Its window opens
+on your X11 desktop (or Wayland, through XWayland).
+
+From the repository's root, build the image:
+
+```sh
+docker build -f docker/Dockerfile.ubuntu -t tktable-test:ubuntu .
+```
+
+Allow local containers to open windows on your display:
+
+```sh
+xhost +local:
+```
+
+Run the example:
+
+```sh
+docker run --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix tktable-test:ubuntu python examples/example1.py
+```
+
+On macOS this needs an X server such as [XQuartz](https://www.xquartz.org/), and is untested.

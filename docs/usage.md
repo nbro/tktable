@@ -8,7 +8,9 @@ arguments of {py:class}`~tktable.table.Table` are the options of the Tcl widget,
 
 ## Example
 
-This is [`examples/example1.py`](https://github.com/nbro/tktable/blob/main/examples/example1.py):
+This is [`examples/example1.py`](https://github.com/nbro/tktable/blob/main/examples/example1.py).
+To run it without installing Tktable, use Docker: see the instructions for
+{ref}`Linux <try-in-docker-linux>` and {ref}`Windows <try-in-docker-windows>`.
 
 ```{literalinclude} ../examples/example1.py
 :language: python

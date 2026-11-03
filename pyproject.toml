@@ -64,10 +64,10 @@ poethepoet = "^0.49.0"
 
 [tool.poetry.group.docs.dependencies]
 # Only for Python >= 3.13, which Sphinx 9.2 requires; CI builds the docs with 3.13.
-sphinx = {version = "^9.2.0", python = ">=3.13"}
-myst-parser = {version = "^5.1.0", python = ">=3.13"}
-furo = {version = "^2025.12.19", python = ">=3.13"}
-sphinx-copybutton = {version = "^0.5.2", python = ">=3.13"}
+sphinx = { version = "^9.2.0", python = ">=3.13" }
+myst-parser = { version = "^5.1.0", python = ">=3.13" }
+furo = { version = "^2025.12.19", python = ">=3.13" }
+sphinx-copybutton = { version = "^0.5.2", python = ">=3.13" }
 
 # ---------------------------------------------------------------------------------------------
 # Tools: formatting, linting, type checking, testing, security
