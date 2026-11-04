@@ -150,3 +150,10 @@ scripts in `.github/scripts/`. All run on pushes to `main`, and all but
   [Magicsplat](https://magicsplat.com/tcl-installer)'s Tktable (not on pull requests);
 - `docs.yml`: builds the docs, and publishes them to GitHub Pages on pushes to `main`;
 - `release.yml`: see [Releasing](releasing.md).
+
+The Windows jobs sometimes fail because Tktable cannot be loaded right after it was installed
+(most likely the antivirus of GitHub's runner is still scanning the new files). The tests try 3
+times, and print a `Tktable load report` at the end of their output when a try fails. If the job
+passes in other runs, it's a flake: rerun the failed jobs from the run's page in the Actions tab
+(`Re-run jobs` > `Re-run failed jobs`), or with `gh run rerun <run-id> --failed`. See
+[Re-running workflows and jobs](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs).
