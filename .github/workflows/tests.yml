@@ -44,10 +44,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        # Pull requests: the oldest and newest supported Python. Elsewhere (main, releases): all.
+        # Pull requests: only the oldest supported Python, to keep them fast. Elsewhere (main): all.
         python-version: >-
           ${{ github.event_name == 'pull_request'
-          && fromJSON('["3.11", "3.15"]')
+          && fromJSON('["3.11"]')
           || fromJSON('["3.11", "3.12", "3.13", "3.14", "3.15"]') }}
     runs-on: ${{ matrix.os }}
     steps:
