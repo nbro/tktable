@@ -140,12 +140,13 @@ poetry run poe clean
 ## Continuous integration
 
 GitHub Actions workflows in `.github/workflows/`, which use the same Poe commands. Longer steps are
-scripts in `.github/scripts/`. All run on pushes and pull requests to `main`:
+scripts in `.github/scripts/`. All run on pushes to `main`, and all but
+`windows-magicsplat.yml` on pull requests to `main`:
 
 - `tests.yml`: quality checks (all pre-commit hooks), and tests on Linux, macOS and Windows with
-  Python 3.11 to 3.15;
+  Python 3.11 to 3.15 (on pull requests, only the oldest, 3.11, to keep them fast);
 - `docker.yml`: tests in Debian and Ubuntu containers, with their own Python, Tk and Tktable;
 - `windows-magicsplat.yml`: tests the documented Windows installation, python.org's Python with
-  [Magicsplat](https://magicsplat.com/tcl-installer)'s Tktable;
+  [Magicsplat](https://magicsplat.com/tcl-installer)'s Tktable (not on pull requests);
 - `docs.yml`: builds the docs, and publishes them to GitHub Pages on pushes to `main`;
 - `release.yml`: see [Releasing](releasing.md).

@@ -1,22 +1,21 @@
 name: Windows + Magicsplat
 
 # Tests the documented Windows installation: python.org's Python with Magicsplat's Tktable.
+# Not on pull requests, to keep them fast: the Tests workflow already tests Windows there.
 
 on:
   workflow_dispatch:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
-# A new push to the same branch or pull request cancels the older run still in progress.
+# A new push to main cancels the older run still in progress.
 concurrency:
   group: windows-magicsplat-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   tests:
-    name: Tests (Python ${{ matrix.python-version }})
+    name: Windows + Magicsplat (Python ${{ matrix.python-version }})
     strategy:
       fail-fast: false
       matrix:
