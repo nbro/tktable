@@ -6,6 +6,11 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- If [pytktable-binaries](https://github.com/nbro/pytktable-binaries) is installed, its prebuilt
+  Tktable is found automatically, without installing Tktable or setting `TKTABLE_LIBRARY`.
+
 ## [0.2.0] - 2026-11-04
 
 ### Added

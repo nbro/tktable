@@ -93,6 +93,11 @@ warn_return_any = false
 warn_unused_ignores = true
 warn_redundant_casts = true
 
+# pytktable-binaries is optional, so it may not be installed.
+[[tool.mypy.overrides]]
+module = ["tktable_binaries"]
+ignore_missing_imports = true
+
 [tool.pylint.main]
 py-version = "3.11"
 

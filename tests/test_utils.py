@@ -1,7 +1,10 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring, missing-class-docstring, too-few-public-methods
 from __future__ import annotations
 
+import sys
 import tkinter
+import types
+from pathlib import Path
 
 import pytest
 
@@ -36,6 +39,12 @@ class FakeInterp:
         self.tk = FakeTk(versions)
 
 
+@pytest.fixture(autouse=True)
+def without_bundled_tktable(monkeypatch):
+    """Run these tests as if pytktable-binaries were not installed, unless a test says otherwise."""
+    monkeypatch.setattr(utils, "_bundled_library", lambda: None)
+
+
 def test_extend_auto_path_with_env(monkeypatch):
     monkeypatch.setenv(utils.TKTABLE_LIBRARY_ENV_VAR, "/opt/Tktable2.10")
     interp = FakeInterp()
@@ -48,6 +57,41 @@ def test_extend_auto_path_without_env(monkeypatch):
     interp = FakeInterp()
     utils.extend_auto_path(interp)  # type: ignore[arg-type]
     assert not interp.tk.calls
+
+
+def test_extend_auto_path_with_bundled_tktable(monkeypatch):
+    monkeypatch.delenv(utils.TKTABLE_LIBRARY_ENV_VAR, raising=False)
+    monkeypatch.setattr(utils, "_bundled_library", lambda: "/site-packages/tktable_binaries")
+    interp = FakeInterp()
+    utils.extend_auto_path(interp)  # type: ignore[arg-type]
+    assert interp.tk.calls == [("lappend", "auto_path", "/site-packages/tktable_binaries")]
+
+
+def test_extend_auto_path_with_env_and_bundled_tktable(monkeypatch):
+    monkeypatch.setenv(utils.TKTABLE_LIBRARY_ENV_VAR, "/opt/Tktable2.10")
+    monkeypatch.setattr(utils, "_bundled_library", lambda: "/site-packages/tktable_binaries")
+    interp = FakeInterp()
+    utils.extend_auto_path(interp)  # type: ignore[arg-type]
+    assert interp.tk.calls == [
+        ("lappend", "auto_path", "/opt/Tktable2.10"),
+        ("lappend", "auto_path", "/site-packages/tktable_binaries"),
+    ]
+
+
+def test_bundled_library_without_pytktable_binaries(monkeypatch):
+    monkeypatch.undo()
+    # None in sys.modules makes "import tktable_binaries" raise ImportError.
+    monkeypatch.setitem(sys.modules, "tktable_binaries", None)
+    assert utils._bundled_library() is None  # pylint: disable=protected-access
+
+
+def test_bundled_library_with_pytktable_binaries(monkeypatch):
+    monkeypatch.undo()
+    fake = types.ModuleType("tktable_binaries")
+    fake.library_dir = lambda: Path("/site-packages/tktable_binaries")  # type: ignore[attr-defined]
+    monkeypatch.setitem(sys.modules, "tktable_binaries", fake)
+    expected = str(Path("/site-packages/tktable_binaries"))
+    assert utils._bundled_library() == expected  # pylint: disable=protected-access
 
 
 def test_find_tktable_scans_without_loading(monkeypatch):

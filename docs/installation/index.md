@@ -44,6 +44,11 @@ If Tktable is installed in a directory Tcl does not search, set the environment 
 `TKTABLE_LIBRARY` to the directory containing Tktable's `pkgIndex.tcl`. That directory is named
 after Tktable's version, e.g. `Tktable2.10` for Tktable 2.10. See your OS page for how to set it.
 
+## Prebuilt Tktable
+
+If the package [pytktable-binaries](https://github.com/nbro/pytktable-binaries) is installed,
+pytktable also finds the Tktable it contains, so you don't need to install Tktable yourself.
+
 ## Troubleshooting
 
 `_tkinter.TclError: can't find package Tktable` or `invalid command name "table"`

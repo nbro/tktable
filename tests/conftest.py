@@ -46,7 +46,8 @@ def session_tktable_error(session_root: tkinter.Tk | str) -> str:
         load_tktable(session_root)
     except tkinter.TclError as exc:
         auto_path = session_root.tk.splitlist(session_root.tk.call("set", "auto_path"))
-        return f"{exc} (TKTABLE_LIBRARY={os.environ.get('TKTABLE_LIBRARY')}, auto_path={auto_path})"
+        folders = ", ".join(str(folder) for folder in auto_path)
+        return f"{exc} (TKTABLE_LIBRARY={os.environ.get('TKTABLE_LIBRARY')}, auto_path: {folders})"
     return ""
 
 
