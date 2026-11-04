@@ -35,15 +35,19 @@ def session_root() -> Iterator[tkinter.Tk | str]:
 
 
 @pytest.fixture(scope="session")
-def session_has_tktable(session_root: tkinter.Tk | str) -> bool:
-    """Whether Tktable can be loaded, checked once for the whole session."""
+def session_tktable_error(session_root: tkinter.Tk | str) -> str:
+    """Why Tktable cannot be loaded, or "" if it can, checked once for the whole session.
+
+    The reason is kept, so a test that fails or is skipped without Tktable shows Tcl's error.
+    """
     if isinstance(session_root, str):
-        return False
+        return session_root
     try:
         load_tktable(session_root)
-    except tkinter.TclError:
-        return False
-    return True
+    except tkinter.TclError as exc:
+        auto_path = session_root.tk.splitlist(session_root.tk.call("set", "auto_path"))
+        return f"{exc} (TKTABLE_LIBRARY={os.environ.get('TKTABLE_LIBRARY')}, auto_path={auto_path})"
+    return ""
 
 
 @pytest.fixture
@@ -57,10 +61,10 @@ def root(session_root: tkinter.Tk | str) -> Iterator[tkinter.Tk]:
 
 
 @pytest.fixture
-def table_root(root: tkinter.Tk, session_has_tktable: bool) -> tkinter.Tk:
+def table_root(root: tkinter.Tk, session_tktable_error: str) -> tkinter.Tk:
     """A Tk root in which Tktable is loaded."""
-    if not session_has_tktable:
+    if session_tktable_error:
         if TKTABLE_REQUIRED:
-            pytest.fail("Tktable is required (TKTABLE_REQUIRED=1) but cannot be loaded")
-        pytest.skip("Tktable is not installed")
+            pytest.fail(f"Tktable is required (TKTABLE_REQUIRED=1) but: {session_tktable_error}")
+        pytest.skip(f"Tktable cannot be loaded: {session_tktable_error}")
     return root
