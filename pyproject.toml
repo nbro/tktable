@@ -4,7 +4,7 @@
 
 [project]
 name = "pytktable"
-version = "0.2.0"
+version = "0.3.0"
 description = "A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk Tktable extension."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -39,6 +39,10 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = []
+
+[project.optional-dependencies]
+# Prebuilt Tktable for Linux, macOS and Windows: pip install "pytktable[binary]".
+binary = ["pytktable-binaries>=2.12.2"]
 
 [project.urls]
 documentation = "https://nbro.github.io/tktable/"
@@ -92,6 +96,11 @@ check_untyped_defs = true
 warn_return_any = false
 warn_unused_ignores = true
 warn_redundant_casts = true
+
+# pytktable-binaries is optional, so it may not be installed.
+[[tool.mypy.overrides]]
+module = ["tktable_binaries"]
+ignore_missing_imports = true
 
 [tool.pylint.main]
 py-version = "3.11"

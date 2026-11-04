@@ -1,5 +1,8 @@
 # Installation on Windows
 
+These instructions are for installing Tktable yourself, with `pip install pytktable`. With
+`pip install "pytktable[binary]"`, you don't need them: see {ref}`prebuilt-tktable`.
+
 The python.org installers for Windows include tkinter, Tcl and Tk: Tcl 8.6 up to Python 3.13, and
 Tcl 9.0 from Python 3.14.
 

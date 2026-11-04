@@ -23,14 +23,32 @@ def _setup_master(master: tkinter.Misc | None) -> tkinter.Misc:
     return master
 
 
+def _bundled_library() -> str | None:
+    """The folder of the Tktable of pytktable-binaries, if that package is installed."""
+    try:
+        # pylint: disable-next=import-outside-toplevel
+        import tktable_binaries
+    except ImportError:
+        return None
+    return str(tktable_binaries.library_dir())
+
+
 def extend_auto_path(interp: tkinter.Misc) -> None:
-    """Append ``$TKTABLE_LIBRARY`` (if set) to Tcl's ``auto_path`` of ``interp``."""
+    """Append to Tcl's ``auto_path`` of ``interp`` the folders where Tktable may be.
+
+    These are ``$TKTABLE_LIBRARY`` (if set), and the Tktable of pytktable-binaries (if installed).
+    """
     library = os.environ.get(TKTABLE_LIBRARY_ENV_VAR)
     if library:
         logger.debug("Add %s to auto_path", library)
         interp.tk.call("lappend", "auto_path", library)
     else:
         logger.debug("The environment variable %s is not defined.", TKTABLE_LIBRARY_ENV_VAR)
+
+    bundled = _bundled_library()
+    if bundled:
+        logger.debug("Add the Tktable of pytktable-binaries, %s, to auto_path", bundled)
+        interp.tk.call("lappend", "auto_path", bundled)
 
 
 def find_tktable(interp: tkinter.Misc) -> list[str]:
