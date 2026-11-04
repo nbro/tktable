@@ -6,6 +6,12 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- When Tktable cannot be loaded, the tests show the error of every try, and print a
+  `Tktable load report` at the end, with Tcl's stack trace, what Tcl knows about Tktable and the
+  files in `TKTABLE_LIBRARY`, to find the cause of the flaky failures on Windows.
+
 ## [0.3.0] - 2026-11-04
 
 ### Added
