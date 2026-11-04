@@ -6,11 +6,18 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-04
+
 ### Added
 
 - `pip install "pytktable[binary]"` also installs Tktable, prebuilt for Linux, macOS and Windows
   ([pytktable-binaries](https://github.com/nbro/pytktable-binaries)). pytktable finds it
   automatically, without installing Tktable or setting `TKTABLE_LIBRARY`.
+
+### Changed
+
+- The installation docs recommend `pip install "pytktable[binary]"`, and keep the instructions to
+  install Tktable yourself for platforms without prebuilt Tktable, or if you prefer your OS's.
 
 ## [0.2.0] - 2026-11-04
 
@@ -104,6 +111,7 @@ First release on PyPI. These changes were made with the help of
 - `tktable/__init__.py` imports `ArrayVar` and `Table` lazily, so the diagnostic works
   without tkinter (explained in the module docstring).
 
-[Unreleased]: https://github.com/nbro/tktable/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/nbro/tktable/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/nbro/tktable/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/nbro/tktable/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/nbro/tktable/releases/tag/0.1.0
