@@ -8,8 +8,9 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- If [pytktable-binaries](https://github.com/nbro/pytktable-binaries) is installed, its prebuilt
-  Tktable is found automatically, without installing Tktable or setting `TKTABLE_LIBRARY`.
+- `pip install "pytktable[binary]"` also installs Tktable, prebuilt for Linux, macOS and Windows
+  ([pytktable-binaries](https://github.com/nbro/pytktable-binaries)). pytktable finds it
+  automatically, without installing Tktable or setting `TKTABLE_LIBRARY`.
 
 ## [0.2.0] - 2026-11-04
 

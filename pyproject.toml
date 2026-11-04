@@ -40,6 +40,10 @@ classifiers = [
 ]
 dependencies = []
 
+[project.optional-dependencies]
+# Prebuilt Tktable for Linux, macOS and Windows: pip install "pytktable[binary]".
+binary = ["pytktable-binaries>=2.12.2"]
+
 [project.urls]
 documentation = "https://nbro.github.io/tktable/"
 repository = "https://github.com/nbro/tktable"

@@ -1455,6 +1455,25 @@ files = [
 filelock = ">=3.16.1"
 
 [[package]]
+name = "pytktable-binaries"
+version = "2.12.2"
+description = "Prebuilt Tktable, the Tcl/Tk table widget, for pytktable."
+optional = true
+python-versions = ">=3.11"
+groups = ["main"]
+markers = "extra == \"binary\""
+files = [
+    {file = "pytktable_binaries-2.12.2-py3-none-macosx_11_0_universal2.whl", hash = "sha256:decce970dd08e607d002928ab0c2d65e0cc25c4c871bed01d0e3008f3a9912e8"},
+    {file = "pytktable_binaries-2.12.2-py3-none-manylinux_2_28_aarch64.whl", hash = "sha256:95ff932743c8692233601ca25b4c8658652c31f3f6790c43a446e667d69f818e"},
+    {file = "pytktable_binaries-2.12.2-py3-none-manylinux_2_28_x86_64.whl", hash = "sha256:30096e5f33fab78739807a011f988504b8b0bffc846ce00af4a51871386e7273"},
+    {file = "pytktable_binaries-2.12.2-py3-none-musllinux_1_2_aarch64.whl", hash = "sha256:e2df90f76926d17fdd9ac8da0ced7fce88c85cfc3781887e258a6c2a8e97ab4b"},
+    {file = "pytktable_binaries-2.12.2-py3-none-musllinux_1_2_x86_64.whl", hash = "sha256:85b2179c5a2cc5a5fa3e5b870ea1050b86dcaf97dd5c9e0b2e60e9f2165bbca6"},
+    {file = "pytktable_binaries-2.12.2-py3-none-win32.whl", hash = "sha256:460554c633687cefd93aeb5e578e8775100c74b8309f78dc9ab7adcf5612918e"},
+    {file = "pytktable_binaries-2.12.2-py3-none-win_amd64.whl", hash = "sha256:49cc0575fdb9e645d4fd6681ae0506a78ae25a85a640ce14806a5963d9127c24"},
+    {file = "pytktable_binaries-2.12.2-py3-none-win_arm64.whl", hash = "sha256:50bac05eb5869eb74329b7fc0e57678a4df15e330d7eaae21a856815957014b4"},
+]
+
+[[package]]
 name = "pytokens"
 version = "0.4.1"
 description = "A Fast, spec compliant Python 3.14+ tokenizer that runs on older Pythons."
@@ -1900,7 +1919,10 @@ packaging = ">=26.3"
 platformdirs = ">=4.4,<5"
 python-discovery = ">=1.6.1"
 
+[extras]
+binary = ["pytktable-binaries"]
+
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.11"
-content-hash = "e1b7f55e61592c23079a60f6b4350e459dbb5dc45e35d98ea8de326deb8f6f49"
+content-hash = "cb78452250e5e7956ffb51fabed59357a15734f87080c806bf8d4341da64c0d9"

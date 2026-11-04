@@ -3,13 +3,14 @@
 A spreadsheet-like table widget for {py:mod}`tkinter`, wrapping the Tcl/Tk
 [Tktable](https://wiki.tcl-lang.org/page/Tktable) extension.
 
-```{admonition} Install Tktable separately
+```{admonition} Install Tktable
 :class: danger
 
 pytktable is only the Python wrapper. The table widget itself is
 [Tktable](https://wiki.tcl-lang.org/page/Tktable), an extension for Tcl/Tk written in C, which
-`pip install pytktable` does not install. Install Tktable first, following the
-[installation instructions](installation/index.md) for your OS, then run `python -m tktable` to
+`pip install pytktable` does not install. Install it with pytktable, prebuilt for Linux, macOS and
+Windows, with `pip install "pytktable[binary]"`, or install it yourself following the
+[installation instructions](installation/index.md) for your OS. Then run `python -m tktable` to
 check that it works.
 ```
 

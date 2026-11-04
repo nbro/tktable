@@ -11,8 +11,9 @@ A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk
 
 > ⚠️ **Important:** pytktable is only the Python wrapper. The table widget itself is
 > [Tktable](https://wiki.tcl-lang.org/page/Tktable), an extension for Tcl/Tk written in C, which
-> `pip install pytktable` does not install. Install Tktable first, following the
-> [installation instructions](https://nbro.github.io/tktable/installation/) for your OS, then run
+> `pip install pytktable` does not install. Install it with pytktable, prebuilt for Linux, macOS
+> and Windows, with `pip install "pytktable[binary]"`, or install it yourself following the
+> [installation instructions](https://nbro.github.io/tktable/installation/) for your OS. Then run
 > `python -m tktable` to check that it works.
 
 The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
@@ -38,13 +39,22 @@ System, from NASA's Planetary Fact Sheet (screenshot taken on Windows 11).
 
 ## Installation
 
+With Tktable, prebuilt for Linux, macOS and Windows
+([pytktable-binaries](https://github.com/nbro/pytktable-binaries)):
+
+```sh
+pip install "pytktable[binary]"
+```
+
+Without Tktable, if you install it yourself (see
+[Installation](https://nbro.github.io/tktable/installation/)):
+
 ```sh
 pip install pytktable
 ```
 
-It is imported as `tktable` (`from tktable import Table`). It also needs the Tktable extension,
-which `pip` does not install: see [Installation](https://nbro.github.io/tktable/installation/)
-for how to install it on your OS, and run `python -m tktable` to check that it works.
+It is imported as `tktable` (`from tktable import Table`). Run `python -m tktable` to check that
+Tktable can be found and loaded.
 
 ## Documentation
 

@@ -1,5 +1,8 @@
 # Installation on Linux and macOS
 
+These instructions are for installing Tktable yourself, with `pip install pytktable`. With
+`pip install "pytktable[binary]"`, you don't need them: see {ref}`prebuilt-tktable`.
+
 ## Install tkinter and Tktable
 
 On Debian and Ubuntu:
