@@ -14,7 +14,9 @@ Windows, with `pip install "pytktable[binary]"`, or install it yourself followin
 check that it works.
 ```
 
-The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
+The wrapper was originally written by [Guilherme Polo](https://github.com/gpip). The code is on
+GitHub, in [nbro/tktable](https://github.com/nbro/tktable), where you can also
+[report issues](https://github.com/nbro/tktable/issues).
 
 ```{image} images/planets.png
 :alt: A window with a table of the 8 planets of the Solar System, made with pytktable

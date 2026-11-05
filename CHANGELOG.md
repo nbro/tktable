@@ -8,6 +8,7 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Links to the GitHub repository on the docs' home page and in the footer of every page.
 - A History page in the docs: where Tcl/Tk, `tkinter` and Tktable come from.
 
 ### Changed
