@@ -1,5 +1,8 @@
 # History
 
+Where Tcl/Tk, `tkinter` and Tktable come from. For how pytktable came to be, see
+[this blog post](https://nbro.gitlab.io/python/2026/11/04/pytktable-a-spreadsheet-like-table-widget-for-tkinter-wrapping-the-tcl-tk-tktable-extension/).
+
 ## Tcl/Tk
 
 [Tcl](https://www.tcl-lang.org/) (Tool Command Language) is a programming language designed by

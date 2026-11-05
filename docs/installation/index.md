@@ -2,6 +2,18 @@
 
 pytktable requires Python >= 3.11 with {py:mod}`tkinter`, Python's interface to Tcl/Tk.
 
+(check-tkinter)=
+## Check tkinter first
+
+pytktable can't install or fix tkinter, so first check that your Python has a working one:
+
+```sh
+python -c "import tkinter; print(tkinter.TkVersion)"
+```
+
+It should print the version of Tcl/Tk your Python uses, e.g. `8.6` or `9.0`. If it fails instead,
+fix tkinter first (see [Troubleshooting](#troubleshooting)), then install pytktable.
+
 (prebuilt-tktable)=
 ## With prebuilt Tktable (recommended)
 
@@ -9,7 +21,8 @@ pytktable requires Python >= 3.11 with {py:mod}`tkinter`, Python's interface to 
 pip install "pytktable[binary]"
 ```
 
-This also installs [pytktable-binaries](https://github.com/nbro/pytktable-binaries), which contains
+Keep the quotes: some shells, e.g. zsh (the default on macOS), would otherwise treat the brackets
+as a file pattern. This also installs [pytktable-binaries](https://github.com/nbro/pytktable-binaries), which contains
 [Tktable](https://wiki.tcl-lang.org/page/Tktable), the Tcl/Tk extension that provides the table
 widget, compiled for Tcl/Tk 8.6 and 9.0 for:
 
@@ -75,6 +88,7 @@ If Tktable is installed in a directory Tcl does not search, set the environment 
 `TKTABLE_LIBRARY` to the directory containing Tktable's `pkgIndex.tcl`. That directory is named
 after Tktable's version, e.g. `Tktable2.10` for Tktable 2.10. See your OS page for how to set it.
 
+(troubleshooting)=
 ## Troubleshooting
 
 `_tkinter.TclError: can't find package Tktable` or `invalid command name "table"`
@@ -86,6 +100,27 @@ after Tktable's version, e.g. `Tktable2.10` for Tktable 2.10. See your OS page f
 `ModuleNotFoundError: No module named 'tkinter'`
 : tkinter is not installed for your Python. On Linux, install your distribution's tkinter
   package ([see above](#prebuilt-tktable)).
+
+`ImportError: ... Library not loaded: .../libtk8.6.dylib` on macOS
+: Your Python was compiled (e.g. by pyenv) against Homebrew's Tcl/Tk 8.6, which Homebrew has since
+  replaced with Tcl/Tk 9 in the `tcl-tk` formula. Python 3.14 and newer work with Tcl/Tk 9, so
+  reinstalling them is enough. Python 3.11 to 3.13 need Tcl/Tk 8.6, from Homebrew's `tcl-tk@8`;
+  with pyenv, e.g. for Python 3.11.9:
+
+  ```sh
+  brew install tcl-tk@8
+  ```
+
+  ```sh
+  pyenv uninstall -f 3.11.9
+  ```
+
+  ```sh
+  PKG_CONFIG_PATH="$(brew --prefix tcl-tk@8)/lib/pkgconfig" pyenv install 3.11.9
+  ```
+
+  Then [check tkinter](#check-tkinter) again, and recreate your virtual environments. The
+  python.org installers for macOS don't have this problem: they come with their own Tcl/Tk.
 
 Tktable is found but fails to load
 : It was probably built for a different Tcl/Tk version than the one your Python uses (e.g. Tcl 8.6
