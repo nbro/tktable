@@ -58,6 +58,7 @@ usage
 api/index
 development
 releasing
+history
 changelog
 license
 ```

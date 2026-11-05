@@ -6,6 +6,10 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- A History page in the docs: where Tcl/Tk, `tkinter` and Tktable come from.
+
 ### Changed
 
 - When Tktable cannot be loaded, the tests show the error of every try, and print a
