@@ -16,7 +16,8 @@ A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk
 > [installation instructions](https://nbro.github.io/tktable/installation/) for your OS. Then run
 > `python -m tktable` to check that it works.
 
-The wrapper was originally written by [Guilherme Polo](https://github.com/gpip).
+The wrapper was originally written by [Guilherme Polo](https://github.com/gpip). For the story
+behind pytktable and its binaries, see [this blog post](https://nbro.gitlab.io/python/2026/11/04/pytktable-a-spreadsheet-like-table-widget-for-tkinter-wrapping-the-tcl-tk-tktable-extension/).
 
 ![A window with a table of the 8 planets of the Solar System, made with pytktable](https://raw.githubusercontent.com/nbro/tktable/main/docs/images/planets.png)
 

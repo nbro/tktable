@@ -8,16 +8,28 @@ import os
 import platform
 import sys
 
+#: Where to read how to install tkinter, Tcl/Tk and Tktable.
+INSTALLATION_URL = "https://nbro.github.io/tktable/installation/"
+
+
+def label(name: str) -> str:
+    """``name`` followed by a colon, padded so that the values line up."""
+    return f"{name + ':':<28}"
+
+
+#: Tktable is the Tcl/Tk extension, not this Python package (pytktable), so say it.
+TKTABLE = label("Tktable (Tcl/Tk extension)")
+
 
 def main() -> int:
     """Print diagnostic information and return the exit status."""
-    print(f"Python:    {sys.version.split()[0]} ({platform.platform()})")
+    print(f"{label('Python')}{sys.version.split()[0]} ({platform.platform()})")
 
     try:
         import tkinter  # pylint: disable=import-outside-toplevel
     except ImportError as exc:
-        print(f"tkinter:   NOT AVAILABLE ({exc})")
-        print("Install tkinter for your Python (e.g. `sudo apt install python3-tk`).")
+        print(f"{label('tkinter')}NOT AVAILABLE ({exc})")
+        print(f"Your Python has no working tkinter: see {INSTALLATION_URL}")
         return 1
 
     # pylint: disable-next=import-outside-toplevel
@@ -26,34 +38,34 @@ def main() -> int:
     try:
         interp = tkinter.Tcl()  # Tcl only: no window, so no display needed.
     except tkinter.TclError as exc:
-        print(f"Tcl:       NOT AVAILABLE ({exc})")
+        print(f"{label('Tcl')}NOT AVAILABLE ({exc})")
         return 1
 
-    print(f"Tcl:       {interp.call('info', 'patchlevel')}")
-    print(f"{TKTABLE_LIBRARY_ENV_VAR}: {os.environ.get(TKTABLE_LIBRARY_ENV_VAR, '(not set)')}")
+    print(f"{label('Tcl')}{interp.call('info', 'patchlevel')}")
+    print(f"{label(TKTABLE_LIBRARY_ENV_VAR)}{os.environ.get(TKTABLE_LIBRARY_ENV_VAR, '(not set)')}")
     versions = find_tktable(interp)
     # One folder per line, as plain text (Tcl 9 returns them as "path objects").
     print("auto_path:")
     for folder in interp.tk.splitlist(interp.call("set", "auto_path")):
         print(f"  {folder}")
     if not versions:
-        print("Tktable:   NOT FOUND")
-        print("See https://nbro.github.io/tktable/installation/")
+        print(f"{TKTABLE}NOT FOUND")
+        print(f"See {INSTALLATION_URL}")
         return 1
-    print(f"Tktable:   found version(s) {', '.join(versions)}")
+    print(f"{TKTABLE}found version(s) {', '.join(versions)}")
 
     try:
         root = tkinter.Tk()
     except tkinter.TclError as exc:
-        print(f"Tk:        cannot start ({exc}); skipped loading Tktable")
+        print(f"{label('Tk')}cannot start ({exc}); skipped loading Tktable")
         return 0
 
     try:
         root.withdraw()
-        print(f"Tk:        {root.call('info', 'patchlevel')}")
-        print(f"Tktable:   loaded version {load_tktable(root)}")
+        print(f"{label('Tk')}{root.call('info', 'patchlevel')}")
+        print(f"{TKTABLE}loaded version {load_tktable(root)}")
     except tkinter.TclError as exc:
-        print(f"Tktable:   FOUND BUT FAILED TO LOAD ({exc})")
+        print(f"{TKTABLE}FOUND BUT FAILED TO LOAD ({exc})")
         print("It may have been built for a different Tcl/Tk version than your Python uses.")
         return 1
     finally:

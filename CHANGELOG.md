@@ -12,6 +12,11 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- `python -m tktable` calls Tktable "Tktable (Tcl/Tk extension)", so it's not confused with
+  pytktable, and links to the installation docs when tkinter doesn't work, instead of suggesting
+  a Debian/Ubuntu command on every OS.
+- The installation docs explain how to check tkinter first, and how to fix it on macOS when
+  Homebrew's Tcl/Tk 9 broke a Python built against Tcl/Tk 8.6.
 - When Tktable cannot be loaded, the tests show the error of every try, and print a
   `Tktable load report` at the end, with Tcl's stack trace, what Tcl knows about Tktable and the
   files in `TKTABLE_LIBRARY`, to find the cause of the flaky failures on Windows.
