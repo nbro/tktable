@@ -3,10 +3,11 @@
 These instructions are for installing Tktable yourself, with `pip install pytktable`. With
 `pip install "pytktable[binary]"`, you don't need them: see {ref}`prebuilt-tktable`.
 
-## Install tkinter and Tktable
+## Install Tktable
 
-The python.org installers for macOS include tkinter. With [MacPorts](https://www.macports.org/),
-install [Tktable](https://ports.macports.org/port/tktable/) (version 2.11):
+First, make sure that your Python has a working tkinter ({ref}`check-tkinter`). Then, with
+[MacPorts](https://www.macports.org/), install
+[Tktable](https://ports.macports.org/port/tktable/) (version 2.11):
 
 ```sh
 sudo port install tktable
@@ -14,8 +15,7 @@ sudo port install tktable
 
 [conda](other-systems.md#conda) also has Tktable.
 
-If tkinter doesn't work with a Python built by pyenv or Homebrew, see
-[Troubleshooting](index.md#troubleshooting).
+If tkinter doesn't work with a Python built by pyenv or Homebrew, see {doc}`troubleshooting`.
 
 ## Check the installation
 

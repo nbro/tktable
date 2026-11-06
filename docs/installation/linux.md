@@ -3,21 +3,24 @@
 These instructions are for installing Tktable yourself, with `pip install pytktable`. With
 `pip install "pytktable[binary]"`, you don't need them: see {ref}`prebuilt-tktable`.
 
-## Install tkinter and Tktable
+## Install Tktable
 
-Where the distribution has a Tktable package, install it with tkinter:
+First, install tkinter ({ref}`see the commands <check-tkinter>`). Then, where the distribution has
+a Tktable package:
 
 | Distribution | Command | Tktable version |
 |---|---|---|
-| Debian, Ubuntu, Linux Mint, Kali Linux | `sudo apt install python3-tk tk-table` | 2.10.8 ([Kali](https://pkg.kali.org/pkg/tk-table)) |
-| Gentoo | `sudo emerge dev-tcltk/tktable`, with Python built with the `tk` USE flag | [2.12.1](https://packages.gentoo.org/packages/dev-tcltk/tktable) |
+| Debian | `sudo apt install tk-table` | |
+| Ubuntu | `sudo apt install tk-table` | |
+| Linux Mint | `sudo apt install tk-table` | |
+| Kali Linux | `sudo apt install tk-table` | [2.10.8](https://pkg.kali.org/pkg/tk-table) |
+| Gentoo | `sudo emerge dev-tcltk/tktable` | [2.12.1](https://packages.gentoo.org/packages/dev-tcltk/tktable) |
 | Slackware | the [`tktable` SlackBuild](https://slackbuilds.org/repository/15.0/development/tktable/), built from source | 2.10.8 |
 
 Fedora, RHEL and its rebuilds (CentOS, Rocky Linux, AlmaLinux), openSUSE, Alpine and Arch Linux
-have no Tktable package that we know of: there, install only tkinter
-({ref}`see the commands <prebuilt-tktable>`) and use the prebuilt Tktable, or
-[conda](other-systems.md#conda). `perl-Tk-TableMatrix` (Fedora, Arch Linux, Manjaro) is a
-different table widget, for Perl/Tk, not Tktable.
+have no Tktable package that we know of: there, use the prebuilt Tktable
+({ref}`prebuilt-tktable`) or [conda](other-systems.md#conda). `perl-Tk-TableMatrix` (Fedora,
+Arch Linux, Manjaro) is a different table widget, for Perl/Tk, not Tktable.
 
 ## Check the installation
 

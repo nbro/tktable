@@ -12,7 +12,31 @@ python -c "import tkinter; print(tkinter.TkVersion)"
 ```
 
 It should print the version of Tcl/Tk your Python uses, e.g. `8.6` or `9.0`. If it fails instead,
-fix tkinter first (see [Troubleshooting](#troubleshooting)), then install pytktable.
+install or fix tkinter first, then install pytktable. The python.org installers for Windows and
+macOS include tkinter. On Linux, install your distribution's tkinter package:
+
+| Distribution | Command |
+|---|---|
+| Debian | `sudo apt install python3-tk` |
+| Ubuntu | `sudo apt install python3-tk` |
+| Linux Mint | `sudo apt install python3-tk` |
+| Kali Linux | `sudo apt install python3-tk` |
+| Fedora | `sudo dnf install python3-tkinter` |
+| RHEL 10 | `sudo dnf install python3-tkinter` |
+| CentOS Stream 10 | `sudo dnf install python3-tkinter` |
+| RHEL 9 | `sudo dnf install python3.12 python3.12-tkinter` |
+| Rocky Linux 9 | `sudo dnf install python3.12 python3.12-tkinter` |
+| AlmaLinux 9 | `sudo dnf install python3.12 python3.12-tkinter` |
+| openSUSE | `sudo zypper install python3-tk` |
+| Alpine | `sudo apk add python3-tkinter` |
+| Arch Linux | `sudo pacman -S tk` |
+| Manjaro | `sudo pacman -S tk` |
+| Gentoo | Python built with the `tk` USE flag |
+
+On RHEL 9 and its rebuilds, `python3` is Python 3.9, older than pytktable requires, so use
+`python3.12`. Most of these are tested with the prebuilt Tktable (see
+[Testing](https://github.com/nbro/pytktable-binaries/blob/main/docs/testing.md)). If tkinter
+still doesn't work, see {doc}`troubleshooting`.
 
 (prebuilt-tktable)=
 ## With prebuilt Tktable (recommended)
@@ -22,8 +46,8 @@ pip install "pytktable[binary]"
 ```
 
 Keep the quotes: some shells, e.g. zsh (the default on macOS), would otherwise treat the brackets
-as a file pattern. This also installs [pytktable-binaries](https://github.com/nbro/pytktable-binaries), which contains
-[Tktable](https://wiki.tcl-lang.org/page/Tktable), the Tcl/Tk extension that provides the table
+as a file pattern. This also installs
+[pytktable-binaries](https://github.com/nbro/pytktable-binaries), which contains [Tktable](https://wiki.tcl-lang.org/page/Tktable), the Tcl/Tk extension that provides the table
 widget, compiled for Tcl/Tk 8.6 and 9.0 for:
 
 | OS | Architectures |
@@ -33,27 +57,12 @@ widget, compiled for Tcl/Tk 8.6 and 9.0 for:
 | macOS 11 and later | Intel, Apple silicon |
 | Windows | x64, x86, ARM |
 
-See [pytktable-binaries](https://github.com/nbro/pytktable-binaries) for where
+See [Platforms](https://github.com/nbro/pytktable-binaries/blob/main/docs/platforms.md) for where
 they are tested.
 
 pytktable finds it automatically, so you don't need to install Tktable or set `TKTABLE_LIBRARY`.
-You only need tkinter, which the python.org installers for Windows and macOS include. On Linux,
-install your distribution's tkinter package:
-
-| Distribution | Command |
-|---|---|
-| Debian, Ubuntu, Linux Mint, Kali Linux | `sudo apt install python3-tk` |
-| Fedora, RHEL 10, CentOS Stream 10 | `sudo dnf install python3-tkinter` |
-| RHEL 9, Rocky Linux 9, AlmaLinux 9 | `sudo dnf install python3.12 python3.12-tkinter` |
-| openSUSE | `sudo zypper install python3-tk` |
-| Alpine | `sudo apk add python3-tkinter` |
-| Arch Linux, Manjaro | `sudo pacman -S tk` |
-| Gentoo | Python built with the `tk` USE flag |
-
-On RHEL 9 and its rebuilds, `python3` is Python 3.9, older than pytktable requires, so use
-`python3.12`. Most of these are tested with the prebuilt Tktable (see
-[Testing](https://github.com/nbro/pytktable-binaries/blob/main/docs/testing.md)). Tktable also
-needs the X11 library (`libX11`), which every desktop Linux has.
+You only need tkinter ({ref}`see above <check-tkinter>`). Tktable also needs the X11 library
+(`libX11`), which every desktop Linux has.
 
 (without-prebuilt-tktable)=
 ## Without prebuilt Tktable
@@ -84,7 +93,9 @@ How to install them depends on your OS:
 
 Tktable from different sources isn't always the same version, so it can behave slightly
 differently: e.g. the default colors of the title rows of the prebuilt Tktable (2.12) and of
-Magicsplat's (2.11) differ.
+Tktable 2.11, from [apnadkarni/tktable](https://github.com/apnadkarni/tktable), which older
+Magicsplat releases had, differ. Magicsplat's latest releases (1.18.0 and 2.0.7) have Tktable
+2.12.1, from [bohagan1/TkTable](https://github.com/bohagan1/TkTable), like the prebuilt one.
 
 ## Check the installation
 
@@ -103,44 +114,6 @@ If Tktable is installed in a directory Tcl does not search, set the environment 
 `TKTABLE_LIBRARY` to the directory containing Tktable's `pkgIndex.tcl`. That directory is named
 after Tktable's version, e.g. `Tktable2.10` for Tktable 2.10. See your OS page for how to set it.
 
-(troubleshooting)=
-## Troubleshooting
-
-`_tkinter.TclError: can't find package Tktable` or `invalid command name "table"`
-: Tcl cannot find Tktable. Install pytktable with [prebuilt Tktable](#prebuilt-tktable), or
-  [install Tktable](#without-prebuilt-tktable) and, if needed, set
-  [`TKTABLE_LIBRARY`](#tktable-library).
-  {py:class}`~tktable.table.Table` raises {py:class}`~tktable.table.CannotUseError` in this case.
-
-`ModuleNotFoundError: No module named 'tkinter'`
-: tkinter is not installed for your Python. On Linux, install your distribution's tkinter
-  package ([see above](#prebuilt-tktable)).
-
-`ImportError: ... Library not loaded: .../libtk8.6.dylib` on macOS
-: Your Python was compiled (e.g. by pyenv) against Homebrew's Tcl/Tk 8.6, which Homebrew has since
-  replaced with Tcl/Tk 9 in the `tcl-tk` formula. Python 3.14 and newer work with Tcl/Tk 9, so
-  reinstalling them is enough. Python 3.11 to 3.13 need Tcl/Tk 8.6, from Homebrew's `tcl-tk@8`;
-  with pyenv, e.g. for Python 3.11.9:
-
-  ```sh
-  brew install tcl-tk@8
-  ```
-
-  ```sh
-  pyenv uninstall -f 3.11.9
-  ```
-
-  ```sh
-  PKG_CONFIG_PATH="$(brew --prefix tcl-tk@8)/lib/pkgconfig" pyenv install 3.11.9
-  ```
-
-  Then [check tkinter](#check-tkinter) again, and recreate your virtual environments. The
-  python.org installers for macOS don't have this problem: they come with their own Tcl/Tk.
-
-Tktable is found but fails to load
-: It was probably built for a different Tcl/Tk version than the one your Python uses (e.g. Tcl 8.6
-  vs 9.0). `python -m tktable` shows both.
-
 ```{toctree}
 :hidden:
 
@@ -148,4 +121,5 @@ linux
 macos
 windows
 other-systems
+troubleshooting
 ```

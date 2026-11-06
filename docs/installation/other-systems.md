@@ -15,8 +15,9 @@ the same package manager.
 (conda)=
 ## conda
 
-On Linux, macOS and Windows, [conda-forge](https://github.com/conda-forge/tktable-feedstock) has
-Tktable, for the Tcl/Tk of a conda environment:
+On Linux, macOS and Windows, [conda-forge](https://anaconda.org/conda-forge/tktable/files) has
+Tktable 2.10, for the Tcl/Tk of a conda environment, also for some CPUs without prebuilt Tktable
+(`ppc64le`, `riscv64`):
 
 ```sh
 conda install -c conda-forge tktable
