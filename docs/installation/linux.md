@@ -15,7 +15,7 @@ Where the distribution has a Tktable package, install it with tkinter:
 
 Fedora, RHEL and its rebuilds (CentOS, Rocky Linux, AlmaLinux), openSUSE, Alpine and Arch Linux
 have no Tktable package that we know of: there, install only tkinter
-([see the commands](index.md#prebuilt-tktable)) and use the prebuilt Tktable, or
+({ref}`see the commands <prebuilt-tktable>`) and use the prebuilt Tktable, or
 [conda](other-systems.md#conda). `perl-Tk-TableMatrix` (Fedora, Arch Linux, Manjaro) is a
 different table widget, for Perl/Tk, not Tktable.
 
