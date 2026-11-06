@@ -7,9 +7,12 @@ on:
   pull_request:
     branches: ["main"]
 
+# One group per branch or pull request, so a pull request's run doesn't cancel main's, which
+# publishes the docs. A new push cancels the older run of the same pull request, but never a run
+# that publishes, so a deployment isn't interrupted halfway.
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: docs-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
