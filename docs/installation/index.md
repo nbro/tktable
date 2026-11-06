@@ -26,9 +26,15 @@ as a file pattern. This also installs [pytktable-binaries](https://github.com/nb
 [Tktable](https://wiki.tcl-lang.org/page/Tktable), the Tcl/Tk extension that provides the table
 widget, compiled for Tcl/Tk 8.6 and 9.0 for:
 
-- Linux: x86_64 and ARM (aarch64), with glibc (most distributions) or musl (e.g. Alpine);
-- macOS 11 and later: Intel and Apple silicon;
-- Windows: x64, x86 and ARM.
+| OS | Architectures |
+|---|---|
+| Linux with glibc 2.28 or newer (most distributions, e.g. Debian 10+, Ubuntu 20.04+, RHEL 8+) | x86_64, ARM (aarch64) |
+| Linux with musl (e.g. Alpine) | x86_64, ARM (aarch64) |
+| macOS 11 and later | Intel, Apple silicon |
+| Windows | x64, x86, ARM |
+
+See [pytktable-binaries](https://github.com/nbro/pytktable-binaries) for where
+they are tested.
 
 pytktable finds it automatically, so you don't need to install Tktable or set `TKTABLE_LIBRARY`.
 You only need tkinter, which the python.org installers for Windows and macOS include. On Linux,
@@ -68,8 +74,14 @@ Then install these, which `pip install pytktable` does not install:
 
 How to install them depends on your OS:
 
-- [Linux and macOS](linux-macos.md)
+- [Linux](linux.md)
+- [macOS](macos.md)
 - [Windows](windows.md)
+- [Other systems](other-systems.md): FreeBSD, OpenBSD, NetBSD and conda
+
+Tktable from different sources isn't always the same version, so it can behave slightly
+differently: e.g. the default colors of the title rows of the prebuilt Tktable (2.12) and of
+Magicsplat's (2.11) differ.
 
 ## Check the installation
 
@@ -129,6 +141,8 @@ Tktable is found but fails to load
 ```{toctree}
 :hidden:
 
-linux-macos
+linux
+macos
 windows
+other-systems
 ```
