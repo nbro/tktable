@@ -38,19 +38,22 @@ they are tested.
 
 pytktable finds it automatically, so you don't need to install Tktable or set `TKTABLE_LIBRARY`.
 You only need tkinter, which the python.org installers for Windows and macOS include. On Linux,
-install your distribution's tkinter package, e.g.:
+install your distribution's tkinter package:
 
-```sh
-sudo apt install python3-tk
-```
+| Distribution | Command |
+|---|---|
+| Debian, Ubuntu, Linux Mint, Kali Linux | `sudo apt install python3-tk` |
+| Fedora, RHEL 10, CentOS Stream 10 | `sudo dnf install python3-tkinter` |
+| RHEL 9, Rocky Linux 9, AlmaLinux 9 | `sudo dnf install python3.12 python3.12-tkinter` |
+| openSUSE | `sudo zypper install python3-tk` |
+| Alpine | `sudo apk add python3-tkinter` |
+| Arch Linux, Manjaro | `sudo pacman -S tk` |
+| Gentoo | Python built with the `tk` USE flag |
 
-on Debian and Ubuntu, or:
-
-```sh
-sudo dnf install python3-tkinter
-```
-
-on Fedora. Tktable also needs the X11 library (`libX11`), which every desktop Linux has.
+On RHEL 9 and its rebuilds, `python3` is Python 3.9, older than pytktable requires, so use
+`python3.12`. Most of these are tested with the prebuilt Tktable (see
+[Testing](https://github.com/nbro/pytktable-binaries/blob/main/docs/testing.md)). Tktable also
+needs the X11 library (`libX11`), which every desktop Linux has.
 
 (without-prebuilt-tktable)=
 ## Without prebuilt Tktable

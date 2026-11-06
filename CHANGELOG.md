@@ -8,6 +8,8 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Commands to install tkinter on the common Linux distributions, and tkinter and Tktable where
+  they have a Tktable package.
 - Installation docs for more Linux distributions (Kali Linux, Gentoo, Slackware), FreeBSD, OpenBSD,
   NetBSD and conda, with separate pages for Linux and macOS.
 - Links to the GitHub repository on the docs' home page and in the footer of every page.

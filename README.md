@@ -4,7 +4,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/pytktable)](https://pypi.org/project/pytktable/)
 [![Tests](https://github.com/nbro/tktable/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/nbro/tktable/actions/workflows/tests.yml)
 [![Docs](https://github.com/nbro/tktable/actions/workflows/docs.yml/badge.svg?branch=main)](https://nbro.github.io/tktable/)
-[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](LICENSE.md)
+[![License](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/nbro/tktable/blob/main/LICENSE.md)
 
 A spreadsheet-like table widget for tkinter, wrapping the Tcl/Tk
 [Tktable](https://wiki.tcl-lang.org/page/Tktable) extension.
@@ -63,9 +63,9 @@ Tktable can be found and loaded.
 
 ## License
 
-[BSD 2-Clause](LICENSE.md).
+[BSD 2-Clause](https://github.com/nbro/tktable/blob/main/LICENSE.md).
 
 Copyright (c) 2008, Guilherme Polo\
 Copyright (c) 2016-2026, nbro
 
-See the [changelog](CHANGELOG.md) for what changed in this fork.
+See the [changelog](https://github.com/nbro/tktable/blob/main/CHANGELOG.md) for what changed in this fork.
