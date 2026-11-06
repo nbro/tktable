@@ -6,6 +6,8 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-06
+
 ### Added
 
 - Commands to install tkinter on the common Linux distributions, and tkinter and Tktable where
@@ -17,6 +19,11 @@ and the project uses [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- The installation docs list one row per distribution, show the tkinter commands only once (in
+  "Check tkinter first"), have the Linux and macOS pages install only Tktable, and move
+  Troubleshooting to its own page.
+- The installation docs say that Magicsplat's latest releases have Tktable 2.12.1, from
+  bohagan1/TkTable, like the prebuilt one.
 - `python -m tktable` calls Tktable "Tktable (Tcl/Tk extension)", so it's not confused with
   pytktable, and links to the installation docs when tkinter doesn't work, instead of suggesting
   a Debian/Ubuntu command on every OS.
@@ -131,7 +138,8 @@ First release on PyPI. These changes were made with the help of
 - `tktable/__init__.py` imports `ArrayVar` and `Table` lazily, so the diagnostic works
   without tkinter (explained in the module docstring).
 
-[Unreleased]: https://github.com/nbro/tktable/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/nbro/tktable/compare/0.3.1...HEAD
+[0.3.1]: https://github.com/nbro/tktable/compare/0.3.0...0.3.1
 [0.3.0]: https://github.com/nbro/tktable/compare/0.2.0...0.3.0
 [0.2.0]: https://github.com/nbro/tktable/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/nbro/tktable/releases/tag/0.1.0
